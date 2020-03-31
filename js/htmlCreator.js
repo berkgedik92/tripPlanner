@@ -18,27 +18,28 @@ function getWelcomePage() {
 }
 
 function getForm() {
-    return '<div class="input-form d-flex flex-column">\
+    return '<div class="form-container d-flex flex-column">\
     <h2 class="text-center">Let\'s plan your trip!</h2>\
-    <div class="full-form">\
-        <div class="form-group">\
+    <form class="input-form">\
+        <div class="form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control input-item" value="01/01/2018 - 01/15/2018"/>\
+            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" value=""/>\
         </div>\
-        <div class="form-group">\
+        <div class="form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/><br>\
+            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code"/><br>\
         </div>\
-        <div class="form-group">\
+        <div class="form-group input-item">\
             <label for="toLocation">To:</label><br>\
-            <input type="text" id="toLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/>\
+            <input type="text" id="toLocation" class="form-control" placeholder="Enter an address, city or airport code"/>\
         </div>\
         <div class="custom-control custom-switch">\
             <input type="checkbox" class="custom-control-input" id="customSwitch1">\
             <label class="custom-control-label" for="customSwitch1">I\'d rather drive</label>\
         </div>\
         <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
-    </div>\
+    </form>\
+    <h5 id="error-message"></h5>\
   </div>';
 }
 

@@ -9,14 +9,15 @@ $(document).ready(function() {
 
     $(document).on('submit','.input-form',event => {
         event.preventDefault();
+        processForm();
         console.log("Rendering results");
-        renderResults();
+        //renderResults();
     })
 
     $(document).on('click', '#new-search-button', event =>{
         console.log("Starting new search");
         event.preventDefault();
-        renderForm();
+        processForm();
     })
 });
 
@@ -29,12 +30,38 @@ function renderWelcomePage(){
 function renderForm(){
     $(".main-container").html(getForm());
     let config = {
-        startOfWeek: 'monday'
+        startOfWeek: 'monday',
+        format: 'MM-DD-YYYY'
     } 
     $('#dateRange').dateRangePicker(config);
 }
 
 function renderResults(){
     $(".main-container").html(getResults());
+}
+
+function processDates(dates){
+    let fromDate = dates.split(" to ")[0].split("-");
+    let toDate = dates.split(" to ")[1].split("-");
+    const datesObject = {
+        fromDay: fromDate[1],
+        fromMonth: fromDate[0],
+        fromYear: fromDate[2],
+        toDay: toDate[1],
+        toMonth: toDate[0],
+        toYear: toDate[2]
+    }
+    console.log(datesObject);
+    return datesObject;
+}
+
+function processForm() {
+    try {
+        const dates = processDates($("#dateRange").val());
+    }
+    catch(e) {
+        $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
+        console.log(`Error: ${e}`);
+    }
 }
     
