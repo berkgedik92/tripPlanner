@@ -27,15 +27,15 @@ function getForm() {
         </div>\
         <div class="form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code"/><br>\
+            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code" required/><br>\
         </div>\
         <div class="form-group input-item">\
             <label for="toLocation">To:</label><br>\
-            <input type="text" id="toLocation" class="form-control" placeholder="Enter an address, city or airport code"/>\
+            <input type="text" id="toLocation" class="form-control" placeholder="Enter an address, city or airport code" required/>\
         </div>\
         <div class="custom-control custom-switch">\
-            <input type="checkbox" class="custom-control-input" id="customSwitch1">\
-            <label class="custom-control-label" for="customSwitch1">I\'d rather drive</label>\
+            <input type="checkbox" class="custom-control-input" id="drive-switch">\
+            <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
         <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
     </form>\

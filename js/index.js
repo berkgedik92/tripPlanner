@@ -58,6 +58,12 @@ function processDates(dates){
 function processForm() {
     try {
         const dates = processDates($("#dateRange").val());
+        const fromLocation = $("#fromLocation").val();
+        const toLocation = $("#toLocation").val();
+        const willDrive = $("#drive-switch").prop("checked");
+        console.log(fromLocation);
+        console.log(toLocation);
+        console.log(willDrive);
     }
     catch(e) {
         $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
