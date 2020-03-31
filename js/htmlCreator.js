@@ -1,5 +1,5 @@
-function renderWelcomePage() {
-    return '<div class="d-flex flex-column justify-content-center">\
+function getWelcomePage() {
+    return '<div class="d-flex flex-column justify-content-around">\
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
         <h1 class="text-center feature-text m-0 display-2 shiny">PLANNIT </h1>\
@@ -17,25 +17,32 @@ function renderWelcomePage() {
     </div>';
 }
 
-function renderForm() {
+function getForm() {
     return '<div class="input-form d-flex flex-column">\
     <h2 class="text-center">Let\'s plan your trip!</h2>\
-    <form class="form-group">\
-      <label for="dateRange">Select travel dates:</label><br>\
-      <input type="text" id="dateRange" class="form-control input-item" value="01/01/2018 - 01/15/2018"/>\
-      <label for="fromLocation">From:</label><br>\
-      <input type="text" id="fromLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/><br>\
-      <label for="toLocation">To:</label><br>\
-      <input type="text" id="toLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/>\
-      <div class="checkbox">\
-        <label><input type="checkbox" value="">I\'d rather drive</label>\
-      </div>\
-      <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-end">\
-    </form>\
+    <div class="full-form">\
+        <div class="form-group">\
+            <label for="dateRange">Select travel dates:</label><br>\
+            <input type="text" id="dateRange" class="form-control input-item" value="01/01/2018 - 01/15/2018"/>\
+        </div>\
+        <div class="form-group">\
+            <label for="fromLocation">From:</label><br>\
+            <input type="text" id="fromLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/><br>\
+        </div>\
+        <div class="form-group">\
+            <label for="toLocation">To:</label><br>\
+            <input type="text" id="toLocation" class="form-control input-item" placeholder="Enter an address, city or airport code"/>\
+        </div>\
+        <div class="custom-control custom-switch">\
+            <input type="checkbox" class="custom-control-input" id="customSwitch1">\
+            <label class="custom-control-label" for="customSwitch1">I\'d rather drive</label>\
+        </div>\
+        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
+    </div>\
   </div>';
 }
 
-function renderResults() {
+function getResults() {
     return `<div class="results-page container d-flex flex-column">\
     <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">SYDNEY</span></h1>\
     <div class="row">\
@@ -54,7 +61,7 @@ function renderResults() {
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>\
       </div>\
       <div class="result-box mb-3 col-sm-8">\
-        <h4 class="result-heading">Activities <i class="far fa-smile"></i></h4>\
+        <h4 class="result-heading">Activities <i class="fas fa-camera"></i></h4>\
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>\
       </div>\
     </div>\
