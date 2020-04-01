@@ -12,14 +12,13 @@ $(document).ready(function() {
     $(document).on('submit','.input-form',event => {
         event.preventDefault();
         $('#error-message').addClass("d-none");
-        processForm();
-        renderResults();        
+        processInput();
     })
 
     $(document).on('click', '#new-search-button', event =>{
         console.log("Starting new search");
         event.preventDefault();
-        processForm();
+        renderForm();
     })
 });
 
@@ -36,9 +35,9 @@ function renderForm(){
     $('#dateRange').dateRangePicker(config);
 }
 
-function renderResults(){
+function renderResults(data){
     console.log("Rendering results");
-    $(".main-container").html(getResults());
+    $(".main-container").html(getResultsContainers(data));
 }
 
 function processDates(dates){
@@ -56,19 +55,15 @@ function processDates(dates){
     return datesObject;
 }
 
-function processForm() {
+function processInput() {
     console.log("Processing input");
     try {
         const dates = processDates($("#dateRange").val());
         const fromLocation = $("#fromLocation").val();
         const toLocation = $("#toLocation").val();
         const willDrive = $("#drive-switch").prop("checked");
-        const fromObj = getGeocoding(fromLocation)
-            .then(data => {
-                dataObj.city = data.formatted_address;
-                dataObj.fromLat = data.geometry.location.lat;
-                dataObj.fromLng = data.geometry.location.lng;
-            });
+        getGeocoding(fromLocation);
+            
     }
     catch(e) {
         $('#error-message').removeClass("d-none");

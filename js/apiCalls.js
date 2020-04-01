@@ -13,10 +13,16 @@ function getGeocoding(location) {
         .then(responseJson => {
             return responseJson.results[0];
         })
+        .then(data => {
+            let dataObj = {};
+            dataObj.city = data.formatted_address;
+            dataObj.fromLat = data.geometry.location.lat;
+            dataObj.fromLng = data.geometry.location.lng;
+            renderResults(dataObj);
+        })
         .catch(e => {
             $('#error-message').removeClass("d-none");
             $('#error-message').text(`Something went wrong. Please try again.`);
             console.log(`Error: ${e}`);
         });
-    return data;
 }
