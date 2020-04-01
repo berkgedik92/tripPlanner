@@ -31,7 +31,7 @@ function getForm() {
         </div>\
         <div class="row form-group input-item">\
             <label for="toLocation">To:</label><br>\
-            <input type="text" id="toLocation" class="form-control" value="Edinburgh" placeholder="Enter an address, city or airport code" required/>\
+            <input type="text" id="toLocation" class="form-control" value="London" placeholder="Enter an address, city or airport code" required/>\
         </div>\
         <div class="row custom-control custom-switch">\
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
@@ -46,7 +46,7 @@ function getForm() {
 // .no-gutters for margins
 function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
-    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
+    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.destination}</span></h1>\
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
