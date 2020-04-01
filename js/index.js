@@ -85,7 +85,7 @@ function processInput() {
             from: fromLocation,
             to: toLocation
         }
-        getGeocoding(locations);
+        getGeocoding1(locations);
             
     }
     catch(e) {

@@ -75,8 +75,8 @@ function getResultsContainers(data) {
 }
 
 function getFlights(data) {
-    const flightData = `<h5>We found a flight for you from <span class="font-weight-bold">${data.depAirport}</span> to \
-    <span class="font-weight-bold">${data.arrAirport}</span> for <span class="font-weight-bold">${data.flightPrice}</span>.</h5>\
+    const flightData = `<h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
+    <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
     <a href="${data.flightLink}" class="btn btn-lg btn-info">See flight</a>`;
     $("#flights-container").html(flightData);
     $("#flights-container").waitMe("hide");
