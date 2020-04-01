@@ -35,7 +35,7 @@ function getGeocoding(locations) {
         });
 }
 
-/* function getNearestAirport(lat, lng) {
+function getNearestAirport(lat, lng) {
     const airportUrl = `https://test.api.amadeus.com/v1/reference-data/locations/airports?latitude=${lat}&longitude=${lng}`;
     const token = 'Bearer bYS88LLrdK5GRQaQK9Yvx01KoJJA'
     fetch('https://example.com/profile', {
@@ -58,7 +58,7 @@ function getGeocoding(locations) {
             $('#error-message').text(`Something went wrong. Please try again.`);
             console.log(`Error: ${e}`); */
         });
-} */
+}
 
 
 
