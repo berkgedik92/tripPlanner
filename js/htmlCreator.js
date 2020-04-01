@@ -1,5 +1,5 @@
 function getWelcomePage() {
-    return '<div class="d-flex flex-column justify-content-around">\
+    return '<div class="d-flex flex-column my-auto">\
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
         <h1 class="text-center feature-text m-0 display-2 shiny">PLANNIT </h1>\
@@ -21,31 +21,33 @@ function getForm() {
     return '<div class="form-container d-flex flex-column">\
     <h2 class="text-center">Let\'s plan your trip!</h2>\
     <form class="input-form">\
-        <div class="form-group input-item">\
+        <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" value=""/>\
+            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" value="04-14-2020 to 04-15-2020"/>\
         </div>\
-        <div class="form-group input-item">\
+        <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code" required/><br>\
+            <input type="text" id="fromLocation" class="form-control" value="Glasgow" placeholder="Enter an address, city or airport code" required/><br>\
         </div>\
-        <div class="form-group input-item">\
+        <div class="row form-group input-item">\
             <label for="toLocation">To:</label><br>\
-            <input type="text" id="toLocation" class="form-control" placeholder="Enter an address, city or airport code" required/>\
+            <input type="text" id="toLocation" class="form-control" value="Edinburgh" placeholder="Enter an address, city or airport code" required/>\
         </div>\
-        <div class="custom-control custom-switch">\
+        <div class="row custom-control custom-switch">\
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
             <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
-        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
+        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info">\
     </form>\
     <h5 id="error-message"></h5>\
   </div>';
 }
 
+// .no-gutters for margins
 function getResults() {
+    console.log(dataObj);
     return `<div class="results-page container d-flex flex-column">\
-    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">SYDNEY</span></h1>\
+    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${dataObj.city}</span></h1>\
     <div class="row">\
       <div class="result-box mb-3 col-sm-7">\
         <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\

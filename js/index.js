@@ -1,3 +1,5 @@
+let dataObj = {};
+
 $(document).ready(function() {
     renderWelcomePage();
 
@@ -9,9 +11,9 @@ $(document).ready(function() {
 
     $(document).on('submit','.input-form',event => {
         event.preventDefault();
+        $('#error-message').addClass("d-none");
         processForm();
-        console.log("Rendering results");
-        //renderResults();
+        renderResults();        
     })
 
     $(document).on('click', '#new-search-button', event =>{
@@ -20,8 +22,6 @@ $(document).ready(function() {
         processForm();
     })
 });
-
-
 
 function renderWelcomePage(){
     $(".main-container").html(getWelcomePage());
@@ -37,6 +37,7 @@ function renderForm(){
 }
 
 function renderResults(){
+    console.log("Rendering results");
     $(".main-container").html(getResults());
 }
 
@@ -51,23 +52,27 @@ function processDates(dates){
         toMonth: toDate[0],
         toYear: toDate[2]
     }
-    console.log(datesObject);
+    //console.log(datesObject);
     return datesObject;
 }
 
 function processForm() {
+    console.log("Processing input");
     try {
         const dates = processDates($("#dateRange").val());
         const fromLocation = $("#fromLocation").val();
         const toLocation = $("#toLocation").val();
         const willDrive = $("#drive-switch").prop("checked");
-        console.log(fromLocation);
-        console.log(toLocation);
-        console.log(willDrive);
+        const fromObj = getGeocoding(fromLocation)
+            .then(data => {
+                dataObj.city = data.formatted_address;
+                dataObj.fromLat = data.geometry.location.lat;
+                dataObj.fromLng = data.geometry.location.lng;
+            });
     }
     catch(e) {
+        $('#error-message').removeClass("d-none");
         $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
         console.log(`Error: ${e}`);
     }
 }
-    
