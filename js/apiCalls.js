@@ -1,9 +1,10 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
 
-function getGeocoding(location) {
+function getGeocoding(locations) {
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
-    let finalUrl = url + "address=" + location.replace(" ", "+") + "&key=" + googleKey;
-    let data = fetch(finalUrl)
+    let finalUrlFrom = url + "address=" + locations.from.replace(" ", "+") + "&key=" + googleKey;
+    let finalUrlTo= url + "address=" + locations.to.replace(" ", "+") + "&key=" + googleKey;
+    let data = fetch(finalUrlFrom)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -18,7 +19,8 @@ function getGeocoding(location) {
             dataObj.city = data.formatted_address;
             dataObj.fromLat = data.geometry.location.lat;
             dataObj.fromLng = data.geometry.location.lng;
-            renderResults(dataObj);
+            renderResultsPage(dataObj);
+            addLoading();
         })
         .catch(e => {
             $('#error-message').removeClass("d-none");

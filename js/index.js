@@ -5,7 +5,6 @@ $(document).ready(function() {
 
     $(document).on('click', '#start-button', event =>{
         console.log("Rendering input form");
-        event.preventDefault();
         renderForm();
     })
 
@@ -17,7 +16,6 @@ $(document).ready(function() {
 
     $(document).on('click', '#new-search-button', event =>{
         console.log("Starting new search");
-        event.preventDefault();
         renderForm();
     })
 });
@@ -35,7 +33,7 @@ function renderForm(){
     $('#dateRange').dateRangePicker(config);
 }
 
-function renderResults(data){
+function renderResultsPage(data){
     console.log("Rendering results");
     $(".main-container").html(getResultsContainers(data));
 }
@@ -55,6 +53,27 @@ function processDates(dates){
     return datesObject;
 }
 
+function addLoading() {
+    run_waitMe("#flights-container");
+    run_waitMe("#restaurants-container");
+    run_waitMe("#hotels-container");
+    run_waitMe("#activities-container");
+    run_waitMe("#weather-container");
+}
+
+function run_waitMe(selector){
+    $(selector).waitMe({
+    effect: 'roundBounce',
+    text: '',
+    bg: 'rgba(255,255,255,0.7)',
+    color: '#2492ad',
+    maxSize: '',
+    waitTime: -1,
+    source: '',
+    textPos: 'vertical',
+    fontSize: '40px'});
+}
+
 function processInput() {
     console.log("Processing input");
     try {
@@ -62,7 +81,11 @@ function processInput() {
         const fromLocation = $("#fromLocation").val();
         const toLocation = $("#toLocation").val();
         const willDrive = $("#drive-switch").prop("checked");
-        getGeocoding(fromLocation);
+        const locations = {
+            from: fromLocation,
+            to: toLocation
+        }
+        getGeocoding(locations);
             
     }
     catch(e) {

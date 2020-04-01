@@ -48,23 +48,23 @@ function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
     <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
     <div class="row">\
-      <div id="flights-container" class="result-box mb-3 col-sm-7">
+      <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
       </div>\
-      <div id="restuarants-container" class="result-box mb-3 col-sm-5">
+      <div id="restaurants-container" class="d-flex flex-column result-box mb-3 col-sm-5">
         <h4 class="result-heading">Restaurants <i class="fas fa-utensils"></i></h4>\
       </div>\
     </div>\
     <div class="row">\
-      <div id="hotels-container" class="result-box mb-3 col-sm-4">
+      <div id="hotels-container" class="d-flex flex-column result-box mb-3 col-sm-4">
         <h4 class="result-heading">Hotels <i class="fas fa-hotel"></i></h4>\
       </div>\
-      <div id="activities-container" class="result-box mb-3 col-sm-8">
+      <div id="activities-container" class="rd-flex flex-column esult-box mb-3 col-sm-8">
         <h4 class="result-heading">Activities <i class="fas fa-camera"></i></h4>\
       </div>\
     </div>\
     <div class="row">\
-      <div id="weather-container" class="result-box col-sm-12">\
+      <div id="weather-container" class="d-flex flex-column result-box col-sm-12">\
         <h4 class="result-heading">Weather <i class="fas fa-cloud-sun"></i></h4>\
       </div>\
     </div>\
@@ -74,8 +74,12 @@ function getResultsContainers(data) {
   </div>`;
 }
 
-function getFlights(something) {
-    return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
+function getFlights(data) {
+    const flightData = `<h5>We found a flight for you from <span class="font-weight-bold">${data.depAirport}</span> to \
+    <span class="font-weight-bold">${data.arrAirport}</span> for <span class="font-weight-bold">${data.flightPrice}</span>.</h5>\
+    <a href="${data.flightLink}" class="btn btn-lg btn-info">See flight</a>`;
+    $("#flights-container").html(flightData);
+    $("#flights-container").waitMe("hide");
 }
 
 function getRestaurants(something) {
