@@ -91,3 +91,9 @@ function processInput() {
         console.log(`Error: ${e}`);
     }
 }
+
+function showError(error) {
+    $('#error-message').removeClass("d-none");
+    $('#error-message').text(`Something went wrong. Please try again.`);
+    console.log(`Error: ${error}`);
+}

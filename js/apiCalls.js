@@ -42,9 +42,7 @@ function getGeocoding(dataObj, type) {
             return result;
         })
         .catch(e => {
-            $('#error-message').removeClass("d-none");
-            $('#error-message').text(`Something went wrong. Please try again.`);
-            console.log(`Error: ${e}`);
+            showError(e)
         });
     return data;
 }
@@ -99,7 +97,7 @@ function getNearestAirport(dataObj, type) {
             
         })
         .catch(e => {
-            // FIGURE OUT HOW WE WANT TO HANDLE SUCH AN ERROR
+            showError(e);
         });
     return data;
 }
@@ -120,6 +118,6 @@ function getFlightInfomation(dataObj){
             getFlights(dataObj);
         })
         .catch(e => {
-            // FIGURE OUT HOW WE WANT TO HANDLE SUCH AN ERROR
+            showError(e);
         });
 }
