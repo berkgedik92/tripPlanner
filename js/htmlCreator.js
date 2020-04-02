@@ -88,7 +88,6 @@ function getFlights(data) {
 }
 
 function getRestaurants(data, restaurants) {
-  console.log(restaurants);
 
   let restaurantList = "";
   let i = 0;
