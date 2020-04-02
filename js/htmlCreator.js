@@ -76,19 +76,38 @@ function getResultsContainers(data) {
 
 function getFlights(data) {
     const flightData = `
-    <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
-    <div class="data-section">
-    <h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
-    <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
-    <a href="${data.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
+      <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
+      <div class="data-section">
+      <h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
+      <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
+      <a href="${data.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
     $("#flights-container").html(flightData);
+    $("#flights-container").css("height", "auto");
     $("#flights-container .data-section").css("opacity", "0");
     $("#flights-container .data-section").animate({opacity: 1}, 3000)
-    showError("helloooooooo", ["#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
 }
 
-function getRestaurants(something) {
-    return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
+function getRestaurants(data, restaurants) {
+  console.log(restaurants);
+
+  let restaurantList = "";
+  let i = 0;
+
+  while (i < 3 && restaurants[i]){
+    const priceRange = "$".repeat(restaurants[i].restaurant.price_range);
+    restaurantList += `<li class="font-weight-bold"><a href="${restaurants[i].restaurant.url}" target="_blank">${restaurants[i].restaurant.name}</a> - ${restaurants[i].restaurant.cuisines} - ${priceRange}</li>`;
+    i++;
+  }
+
+  const restaurantData = `
+      <div class="data-section">
+      <h5>Here are some restaurants in <span class="font-weight-bold">${data.toCity}</span> for you.</h5>\
+      <ul class="restaurant-list">${restaurantList}</ul>`;
+    $("#restaurants-container").append(restaurantData);
+    $("#restaurants-container").waitMe("hide");
+    $("#restaurants-container").css("height", "auto");
+    $("#restaurants-container .data-section").css("opacity", "0");
+    $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
 }
 
 function getHotels(something) {

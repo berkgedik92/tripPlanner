@@ -1,11 +1,10 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer qcbcfU4AJlDP55yT7fDtr69Da0Zb';
+const airportCodeToken = 'Bearer Sf6BWpDUIPg7v1Mm2ApDRgnAJ1AQ';
+const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 
 // TO DO: get bearer token automatically
 // TO DO: fetch destination city
-// TO DO: handle error message in each container
 // TO DO: fix flight parsing
-// TO DO: add restaurants
 // TO DO: add activities
 // TO DO: add hotels
 // TO DO: add driving directions
@@ -18,6 +17,9 @@ function handleApiCalls(dataObj){
             renderResultsPage(dataObj);
             addLoading();
             return getGeocoding(dataObj, "from")
+        })
+        .then(function() {
+            return callRestaurants(dataObj);
         })
         .then(function() {
             return getNearestAirport(dataObj, "to");
@@ -53,6 +55,30 @@ function getGeocoding(dataObj, type) {
             dataObj[lat] = result.geometry.location.lat;
             dataObj[lng] = result.geometry.location.lng;
             return result;
+        })
+        .catch(e => {
+            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
+        });
+    return data;
+}
+
+function callRestaurants(dataObj){
+
+    const restaurantUrl = `https://developers.zomato.com/api/v2.1/geocode?lat=${dataObj.toLat}&lon=-4.251806${dataObj.toLng}`;
+    
+    console.log(restaurantUrl);
+    let data = fetch(restaurantUrl, { 
+        headers: {
+            "user-key": zomatoKey}})
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            getRestaurants(dataObj, responseJson.nearby_restaurants);
+            return responseJson;
         })
         .catch(e => {
             showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
@@ -125,7 +151,7 @@ function getFlightInfomation(dataObj){
     const toDate = `${dates.toDay}/${dates.toMonth}/${dates.toYear}`;
     const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&flyTo=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&partner=picky&v=3`;
     
-    fetch(flightUrl)
+    let data = fetch(flightUrl)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -140,4 +166,5 @@ function getFlightInfomation(dataObj){
         .catch(e => {
             showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
         });
+    return data;
 }
