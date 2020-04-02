@@ -1,5 +1,5 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer kWEA5w9PreGHNgyD56PLvRsvIHzx'
+const airportCodeToken = 'Bearer agPe9rHb71g69GsqE8mSMz12aUkW'
 
 function handleApiCalls(dataObj){
     getGeocoding(dataObj, "to")
@@ -8,10 +8,16 @@ function handleApiCalls(dataObj){
             addLoading();
             return getGeocoding(dataObj, "from")
         })
-        .then(
-            getNearestAirport1(dataObj)
+        .then(data => {
+            return getNearestAirport(dataObj, "to");
             //getAirportAuthorization(dataObj);
-        )
+        })
+        .then(data => {
+            return getNearestAirport(dataObj, "from");
+        })
+        .then(data => {
+            getFlightInfomation(dataObj);
+        })
 }
 
 function getGeocoding(dataObj, type) {
@@ -35,7 +41,6 @@ function getGeocoding(dataObj, type) {
             dataObj[lng] = result.geometry.location.lng;
             return result;
         })
-
         .catch(e => {
             $('#error-message').removeClass("d-none");
             $('#error-message').text(`Something went wrong. Please try again.`);
@@ -72,9 +77,12 @@ function getAirportAuthorization(dataObj) {
         })
 }
 
-function getNearestAirport1(dataObj) {
-    const airportUrl = `https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${dataObj.toLat}&longitude=${dataObj.toLng}`;
-    fetch(airportUrl, {
+function getNearestAirport(dataObj, type) {
+    const lat = type + "Lat";
+    const lng = type + "Lng";
+    const airport = type + "Airport";
+    const airportUrl = `https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${dataObj[lat]}&longitude=${dataObj[lng]}`;
+    let data = fetch(airportUrl, {
         headers: {
             'Authorization': airportCodeToken
         }})
@@ -86,35 +94,14 @@ function getNearestAirport1(dataObj) {
         })
         .then(responseJson => {
             console.log(`To: ${responseJson.data[0].iataCode}`);
-            dataObj.toAirport = responseJson.data[0].iataCode;
-            getNearestAirport2(dataObj);
+            dataObj[airport] = responseJson.data[0].iataCode;
+            return responseJson;
+            
         })
         .catch(e => {
             // FIGURE OUT HOW WE WANT TO HANDLE SUCH AN ERROR
         });
-}
-
-function getNearestAirport2(dataObj) {
-    const airportUrl = `https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${dataObj.fromLat}&longitude=${dataObj.fromLng}`;
-    
-    fetch(airportUrl, {
-        headers: {
-            'Authorization': airportCodeToken
-        }})
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(response.statusText);
-        })
-        .then(responseJson => {
-            console.log(`From: ${responseJson.data[0].iataCode}`);
-            dataObj.fromAirport = responseJson.data[0].iataCode;
-            getFlightInfomation(dataObj);
-        })
-        .catch(e => {
-            // FIGURE OUT HOW WE WANT TO HANDLE SUCH AN ERROR
-        });
+    return data;
 }
 
 function getFlightInfomation(dataObj){
