@@ -3,19 +3,19 @@ const airportCodeToken = 'Bearer agPe9rHb71g69GsqE8mSMz12aUkW'
 
 function handleApiCalls(dataObj){
     getGeocoding(dataObj, "to")
-        .then(data => {
+        .then(function() {
             renderResultsPage(dataObj);
             addLoading();
             return getGeocoding(dataObj, "from")
         })
-        .then(data => {
+        .then(function() {
             return getNearestAirport(dataObj, "to");
             //getAirportAuthorization(dataObj);
         })
-        .then(data => {
+        .then(function() {
             return getNearestAirport(dataObj, "from");
         })
-        .then(data => {
+        .then(function() {
             getFlightInfomation(dataObj);
         })
 }
@@ -93,7 +93,7 @@ function getNearestAirport(dataObj, type) {
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            console.log(`To: ${responseJson.data[0].iataCode}`);
+            console.log(`${type}: ${responseJson.data[0].iataCode}`);
             dataObj[airport] = responseJson.data[0].iataCode;
             return responseJson;
             
