@@ -50,22 +50,27 @@ function getResultsContainers(data) {
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
+        <div id="flights-data"></div>
       </div>\
       <div id="restaurants-container" class="d-flex flex-column result-box mb-3 col-sm-5">
         <h4 class="result-heading">Restaurants <i class="fas fa-utensils"></i></h4>\
+        <div id="restaurants-data"></div>
       </div>\
     </div>\
     <div class="row">\
       <div id="hotels-container" class="d-flex flex-column result-box mb-3 col-sm-4">
         <h4 class="result-heading">Hotels <i class="fas fa-hotel"></i></h4>\
+        <div id="hotels-data"></div>
       </div>\
-      <div id="activities-container" class="rd-flex flex-column esult-box mb-3 col-sm-8">
+      <div id="activities-container" class="rd-flex flex-column result-box mb-3 col-sm-8">
         <h4 class="result-heading">Activities <i class="fas fa-camera"></i></h4>\
+        <div id="activities-data"></div>
       </div>\
     </div>\
     <div class="row">\
       <div id="weather-container" class="d-flex flex-column result-box col-sm-12">\
         <h4 class="result-heading">Weather <i class="fas fa-cloud-sun"></i></h4>\
+        <div id="weather-data"></div>
       </div>\
     </div>\
     <div class="row justify-content-center">\

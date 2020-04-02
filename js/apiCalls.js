@@ -57,7 +57,7 @@ function getGeocoding(dataObj, type) {
             return result;
         })
         .catch(e => {
-            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
+            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
         });
     return data;
 }
@@ -81,7 +81,7 @@ function callRestaurants(dataObj){
             return responseJson;
         })
         .catch(e => {
-            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
+            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
         });
     return data;
 }
@@ -139,7 +139,7 @@ function getNearestAirport(dataObj, type) {
             
         })
         .catch(e => {
-            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
+            showError(e, ["#flights-data"]);
         });
     return data;
 }
@@ -164,7 +164,7 @@ function getFlightInfomation(dataObj){
             getFlights(dataObj);
         })
         .catch(e => {
-            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
+            showError(e, ["#flights-data"]);
         });
     return data;
 }
