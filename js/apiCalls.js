@@ -1,9 +1,10 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer vIQO03Pcgmk2yKb64U6GMrmbyJul';
+const airportCodeToken = 'Bearer qcbcfU4AJlDP55yT7fDtr69Da0Zb';
 
 // TO DO: get bearer token automatically
 // TO DO: fetch destination city
 // TO DO: handle error message in each container
+// TO DO: fix flight parsing
 // TO DO: add restaurants
 // TO DO: add activities
 // TO DO: add hotels
@@ -54,7 +55,7 @@ function getGeocoding(dataObj, type) {
             return result;
         })
         .catch(e => {
-            showError(e)
+            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
         });
     return data;
 }
@@ -112,7 +113,7 @@ function getNearestAirport(dataObj, type) {
             
         })
         .catch(e => {
-            showError(e);
+            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
         });
     return data;
 }
@@ -122,7 +123,7 @@ function getFlightInfomation(dataObj){
     const dates = dataObj.dates;
     const fromDate = `${dates.fromDay}/${dates.fromMonth}/${dates.fromYear}`;
     const toDate = `${dates.toDay}/${dates.toMonth}/${dates.toYear}`;
-    const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&to=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&partner=picky&v=3`;
+    const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&flyTo=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&partner=picky&v=3`;
     
     fetch(flightUrl)
         .then(response => {
@@ -137,6 +138,6 @@ function getFlightInfomation(dataObj){
             getFlights(dataObj);
         })
         .catch(e => {
-            showError(e);
+            showError(e, ["#flights-container", "#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
         });
 }

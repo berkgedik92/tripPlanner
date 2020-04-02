@@ -84,6 +84,7 @@ function getFlights(data) {
     $("#flights-container").html(flightData);
     $("#flights-container .data-section").css("opacity", "0");
     $("#flights-container .data-section").animate({opacity: 1}, 3000)
+    showError("helloooooooo", ["#restaurants-container", "#hotels-container", "#activities-container", "#weather-container"]);
 }
 
 function getRestaurants(something) {

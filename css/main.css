@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
 :root {
-    --main-font-color: #888888;
+    --main-font-color: #a0a0a0;
     --main-accent-color: #2492ad;
 }
 * {
@@ -71,7 +72,6 @@
     color: red;
 }
 
-
 /* RESULTS PAGE */
 .result-box {
     border: 1px solid rgb(226, 226, 226);
@@ -88,4 +88,10 @@
 }
 .results-page svg {
     font-size: 0.9em;
+}
+.error,
+.error path {
+    color: #a0a0a0;
+    font-family: Lato, sans-serif;
+    font-weight: 100;
 }

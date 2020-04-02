@@ -92,8 +92,10 @@ function processInput() {
     }
 }
 
-function showError(error) {
-    $('#error-message').removeClass("d-none");
-    $('#error-message').text(`Something went wrong. Please try again.`);
+function showError(error, containerSelectors) {
+    for (let i=0; i < containerSelectors.length; i++){
+        $(containerSelectors[i]).append(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
+        $(containerSelectors[i]).waitMe("hide");
+    }
     console.log(`Error: ${error}`);
 }
