@@ -1,6 +1,7 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer Sf6BWpDUIPg7v1Mm2ApDRgnAJ1AQ';
-const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
+const airportCodeToken = 'Bearer whtCQX7P3u67HmvCIQHWl8WudScI';
+const zomatoKey = 'wRh9AFG3gYmjlA8pMO1YNuZtJZBm';
+const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
 // TO DO: get bearer token automatically
 // TO DO: fetch destination city
@@ -20,6 +21,9 @@ function handleApiCalls(dataObj){
         })
         .then(function() {
             return callRestaurants(dataObj);
+        })
+        .then(function() {
+            return callWeather(dataObj);
         })
         .then(function() {
             return getNearestAirport(dataObj, "to");
@@ -64,8 +68,9 @@ function getGeocoding(dataObj, type) {
 
 function callRestaurants(dataObj){
 
-    const restaurantUrl = `https://developers.zomato.com/api/v2.1/geocode?lat=${dataObj.toLat}&lon=-4.251806${dataObj.toLng}`;
-    
+    //const restaurantUrl = "https://developers.zomato.com/api/v2.1/geocode?lat=55.864237&lon=-4.251806";
+    //const restaurantUrl = `https://developers.zomato.com/api/v2.1/geocode?lat=${dataObj.toLat}&lon=${dataObj.toLng}`;
+    return dataObj;
     console.log(restaurantUrl);
     let data = fetch(restaurantUrl, { 
         headers: {
@@ -162,6 +167,28 @@ function getFlightInfomation(dataObj){
             dataObj.flightLink = responseJson.data[0].deep_link;
             dataObj.flightPrice = responseJson.data[0].price;
             getFlights(dataObj);
+        })
+        .catch(e => {
+            showError(e, ["#flights-data"]);
+        });
+    return data;
+}
+
+function callWeather(dataObj){
+
+    const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=e606e07a4c4e4513a58619045af84818&lat=${dataObj.toLat}&lon=${dataObj.toLng}`;
+
+    let data = fetch(weatherUrl)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            //dataObj.toCity = responseJson.city_name;
+            getWeather(responseJson);
+            return responseJson;
         })
         .catch(e => {
             showError(e, ["#flights-data"]);

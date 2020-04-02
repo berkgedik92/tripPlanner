@@ -69,7 +69,7 @@ function getResultsContainers(data) {
     </div>\
     <div class="row">\
       <div id="weather-container" class="d-flex flex-column result-box col-sm-12">\
-        <h4 class="result-heading">Weather <i class="fas fa-cloud-sun"></i></h4>\
+        <h4 class="result-heading">5-Day Forecast <i class="fas fa-cloud-sun"></i></h4>\
         <div id="weather-data"></div>
       </div>\
     </div>\
@@ -81,12 +81,12 @@ function getResultsContainers(data) {
 
 function getFlights(data) {
     const flightData = `
-      <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
       <div class="data-section">
       <h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
       <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
       <a href="${data.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
-    $("#flights-container").html(flightData);
+    $("#flights-container").append(flightData);
+    $("#flights-container").waitMe("hide");
     $("#flights-container").css("height", "auto");
     $("#flights-container .data-section").css("opacity", "0");
     $("#flights-container .data-section").animate({opacity: 1}, 3000)
@@ -112,6 +112,7 @@ function getRestaurants(data, restaurants) {
     $("#restaurants-container").css("height", "auto");
     $("#restaurants-container .data-section").css("opacity", "0");
     $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
+    //getWeather();
 }
 
 function getHotels(something) {
@@ -122,6 +123,20 @@ function getActivities(something) {
     return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
 }
 
-function getWeather(something) {
-    return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
+function getWeather(data) {
+
+  let weatherForecasts = "";
+  for (let i=1; i < 6; i++) {
+    let cur = data.data[i];
+    let icon = getWeatherIcon(cur.weather.code);
+    weatherForecasts += `<div class="col d-flex flex-column">${icon}<h5 class="weather-date">${cur.valid_date.slice(5)}</h5><h6 class="temps">${convertToFarenheit(cur.min_temp)}°F | ${convertToFarenheit(cur.max_temp)}°F</div>`;
+  }
+
+  const weatherData =  `
+    <h4 class="result-heading">5-Day Forecast in ${data.city_name} <i class="fas fa-cloud-sun"></i></h4>\
+    <div class="data-section row daily-forecasts">${weatherForecasts}</div>`;
+  $("#weather-container").html(weatherData);
+  $("#weather-container").css("height", "auto");
+  $("#weather-container .data-section").css("opacity", "0");
+  $("#weather-container .data-section").animate({opacity: 1}, 3000)
 }

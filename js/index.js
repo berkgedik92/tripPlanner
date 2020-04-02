@@ -99,3 +99,63 @@ function showError(error, containerSelectors) {
     }
     console.log(`Error: ${error}`);
 }
+
+function convertToFarenheit(celsius) {
+    return Math.round((celsius*1.8)+32);
+}
+
+function getWeatherIcon(code) {
+    switch (code) {
+        case 800:
+            // sunny
+            return '<i class="fas fa-sun align-self-center"></i>';
+        case 300:
+        case 301:
+        case 302:
+        case 500:
+        case 501:
+        case 502:
+        case 511:
+        case 520:
+        case 521:
+        case 522:
+        case 900:
+            // raining
+            return '<i class="fas fa-cloud-showers-heavy align-self-center"></i>';
+        case 700:
+        case 711:
+        case 721:
+        case 731:
+        case 741:
+        case 751:
+        case 801:
+        case 802:
+        case 803:
+        case 804:
+            // cloudy/sunny
+            return '<i class="fas fa-cloud-sun align-self-center"></i>';
+        case 200:
+        case 201:
+        case 202:
+        case 230:
+        case 231:
+        case 232:
+        case 233:
+            // storm
+            return '<i class="fas fa-bolt align-self-center"></i>';
+        case 600:
+        case 601:
+        case 602:
+        case 610:
+        case 611:
+        case 612:
+        case 621:
+        case 622:
+        case 623:
+        case 612:
+            // snowing
+            return '<i class="far fa-snowflake align-self-center"></i>';
+        default:
+            return '<i class="fas fa-sun align-self-center"></i>';
+    }
+}
