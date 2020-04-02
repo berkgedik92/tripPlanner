@@ -1,10 +1,10 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer <token>'
+const airportCodeToken = 'Bearer OqbF2RD1ENJPFcmUeDAceYweTwmU'
 
-function getGeocoding1(locations) {
+function getGeocoding1(dataObj) {
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
-    let finalUrlFrom = url + "address=" + locations.from.replace(" ", "+") + "&key=" + googleKey;
-    let finalUrlTo= url + "address=" + locations.to.replace(" ", "+") + "&key=" + googleKey;
+    let finalUrlFrom = url + "address=" + dataObj.fromLocation.replace(" ", "+") + "&key=" + googleKey;
+    let finalUrlTo= url + "address=" + dataObj.toLocation.replace(" ", "+") + "&key=" + googleKey;
     fetch(finalUrlTo)
         .then(response => {
             if (response.ok) {
@@ -16,7 +16,6 @@ function getGeocoding1(locations) {
             return responseJson.results[0];
         })
         .then(data => {
-            let dataObj = {};
             dataObj.destination= data.formatted_address;
             dataObj.toLat = data.geometry.location.lat;
             dataObj.toLng = data.geometry.location.lng;
@@ -46,12 +45,41 @@ function getGeocoding2(fromUrl, dataObj) {
             dataObj.fromLat = data.geometry.location.lat;
             dataObj.fromLng = data.geometry.location.lng;
             getNearestAirport1(dataObj);
+            //getAirportAuthorization(dataObj);
         })
         .catch(e => {
             $('#error-message').removeClass("d-none");
             $('#error-message').text(`Something went wrong. Please try again.`);
             console.log(`Error: ${e}`);
         });
+}
+
+function getAirportAuthorization(dataObj) {
+    fetch("https://api.amadeus.com/v1/security/oauth2/token", {
+        body: "grant_type=client_credentials&client_id=26QAEy7gXRIcAuMUOJHZg6oD9YPIolH3&client_secret=SNEAe0OOKJnoQ1cP",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: "POST",
+        dataType : "json"
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("in authorization");
+                console.log(response.text());
+                return response;
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            console.log(responseJson.toString());
+            return responseJson.results[0];
+        })
+        .then(data => {
+            dataObj.fromLat = data.geometry.location.lat;
+            dataObj.fromLng = data.geometry.location.lng;
+            getNearestAirport1(dataObj);
+        })
 }
 
 function getNearestAirport1(dataObj) {

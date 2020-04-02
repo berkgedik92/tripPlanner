@@ -75,11 +75,15 @@ function getResultsContainers(data) {
 }
 
 function getFlights(data) {
-    const flightData = `<h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
+    const flightData = `
+    <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
+    <div class="data-section">
+    <h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
     <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
-    <a href="${data.flightLink}" class="btn btn-lg btn-info">See flight</a>`;
+    <a href="${data.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
     $("#flights-container").html(flightData);
-    $("#flights-container").waitMe("hide");
+    $("#flights-container .data-section").css("opacity", "0");
+    $("#flights-container .data-section").animate({opacity: 1}, 3000)
 }
 
 function getRestaurants(something) {

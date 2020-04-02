@@ -77,15 +77,12 @@ function run_waitMe(selector){
 function processInput() {
     console.log("Processing input");
     try {
-        const dates = processDates($("#dateRange").val());
-        const fromLocation = $("#fromLocation").val();
-        const toLocation = $("#toLocation").val();
-        const willDrive = $("#drive-switch").prop("checked");
-        const locations = {
-            from: fromLocation,
-            to: toLocation
-        }
-        getGeocoding1(locations);
+        let dataObj = {};
+        dataObj.dates = processDates($("#dateRange").val());
+        dataObj.fromLocation = $("#fromLocation").val();
+        dataObj.toLocation = $("#toLocation").val();
+        dataObj.willDrive = $("#drive-switch").prop("checked");
+        getGeocoding1(dataObj);
             
     }
     catch(e) {
