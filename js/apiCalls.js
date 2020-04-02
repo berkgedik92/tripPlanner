@@ -1,37 +1,27 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer OqbF2RD1ENJPFcmUeDAceYweTwmU'
+const airportCodeToken = 'Bearer kWEA5w9PreGHNgyD56PLvRsvIHzx'
 
-function getGeocoding1(dataObj) {
-    let url = "https://maps.googleapis.com/maps/api/geocode/json?";
-    let finalUrlFrom = url + "address=" + dataObj.fromLocation.replace(" ", "+") + "&key=" + googleKey;
-    let finalUrlTo= url + "address=" + dataObj.toLocation.replace(" ", "+") + "&key=" + googleKey;
-    fetch(finalUrlTo)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(response.statusText);
-        })
-        .then(responseJson => {
-            return responseJson.results[0];
-        })
+function handleApiCalls(dataObj){
+    getGeocoding(dataObj, "to")
         .then(data => {
-            dataObj.destination= data.formatted_address;
-            dataObj.toLat = data.geometry.location.lat;
-            dataObj.toLng = data.geometry.location.lng;
             renderResultsPage(dataObj);
             addLoading();
-            getGeocoding2(finalUrlFrom, dataObj);
+            return getGeocoding(dataObj, "from")
         })
-        .catch(e => {
-            $('#error-message').removeClass("d-none");
-            $('#error-message').text(`Something went wrong. Please try again.`);
-            console.log(`Error: ${e}`);
-        });
+        .then(
+            getNearestAirport1(dataObj)
+            //getAirportAuthorization(dataObj);
+        )
 }
 
-function getGeocoding2(fromUrl, dataObj) {
-    fetch(fromUrl)
+function getGeocoding(dataObj, type) {
+    let objKey = type + "Location";
+    let lat = type + "Lat";
+    let lng = type + "Lng";
+    let city = type + "City";
+    let url = "https://maps.googleapis.com/maps/api/geocode/json?";
+    let finalUrl = url + "address=" + dataObj[objKey].replace(" ", "+") + "&key=" + googleKey;
+    let data = fetch(finalUrl)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -39,19 +29,19 @@ function getGeocoding2(fromUrl, dataObj) {
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            return responseJson.results[0];
+            let result = responseJson.results[0];
+            dataObj[city]= result.formatted_address;
+            dataObj[lat] = result.geometry.location.lat;
+            dataObj[lng] = result.geometry.location.lng;
+            return result;
         })
-        .then(data => {
-            dataObj.fromLat = data.geometry.location.lat;
-            dataObj.fromLng = data.geometry.location.lng;
-            getNearestAirport1(dataObj);
-            //getAirportAuthorization(dataObj);
-        })
+
         .catch(e => {
             $('#error-message').removeClass("d-none");
             $('#error-message').text(`Something went wrong. Please try again.`);
             console.log(`Error: ${e}`);
         });
+    return data;
 }
 
 function getAirportAuthorization(dataObj) {

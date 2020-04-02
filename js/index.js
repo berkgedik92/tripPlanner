@@ -82,7 +82,7 @@ function processInput() {
         dataObj.fromLocation = $("#fromLocation").val();
         dataObj.toLocation = $("#toLocation").val();
         dataObj.willDrive = $("#drive-switch").prop("checked");
-        getGeocoding1(dataObj);
+        handleApiCalls(dataObj);
             
     }
     catch(e) {
