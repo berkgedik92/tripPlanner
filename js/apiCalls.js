@@ -1,7 +1,17 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer agPe9rHb71g69GsqE8mSMz12aUkW'
+const airportCodeToken = 'Bearer vIQO03Pcgmk2yKb64U6GMrmbyJul';
+
+// TO DO: get bearer token automatically
+// TO DO: fetch destination city
+// TO DO: handle error message in each container
+// TO DO: add restaurants
+// TO DO: add activities
+// TO DO: add hotels
+// TO DO: add driving directions
+// TO DO: add weather
 
 function handleApiCalls(dataObj){
+
     getGeocoding(dataObj, "to")
         .then(function() {
             renderResultsPage(dataObj);
@@ -17,16 +27,18 @@ function handleApiCalls(dataObj){
         })
         .then(function() {
             getFlightInfomation(dataObj);
-        })
+        });
 }
 
 function getGeocoding(dataObj, type) {
+
     let objKey = type + "Location";
     let lat = type + "Lat";
     let lng = type + "Lng";
     let city = type + "City";
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
     let finalUrl = url + "address=" + dataObj[objKey].replace(" ", "+") + "&key=" + googleKey;
+
     let data = fetch(finalUrl)
         .then(response => {
             if (response.ok) {
@@ -48,6 +60,7 @@ function getGeocoding(dataObj, type) {
 }
 
 function getAirportAuthorization(dataObj) {
+
     fetch("https://api.amadeus.com/v1/security/oauth2/token", {
         body: "grant_type=client_credentials&client_id=26QAEy7gXRIcAuMUOJHZg6oD9YPIolH3&client_secret=SNEAe0OOKJnoQ1cP",
         headers: {
@@ -76,10 +89,12 @@ function getAirportAuthorization(dataObj) {
 }
 
 function getNearestAirport(dataObj, type) {
+
     const lat = type + "Lat";
     const lng = type + "Lng";
     const airport = type + "Airport";
     const airportUrl = `https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${dataObj[lat]}&longitude=${dataObj[lng]}`;
+
     let data = fetch(airportUrl, {
         headers: {
             'Authorization': airportCodeToken
@@ -103,7 +118,11 @@ function getNearestAirport(dataObj, type) {
 }
 
 function getFlightInfomation(dataObj){
-    const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&to=${dataObj.toAirport}&dateFrom=18/11/2020&dateTo=12/12/2020&partner=picky&v=3`;
+
+    const dates = dataObj.dates;
+    const fromDate = `${dates.fromDay}/${dates.fromMonth}/${dates.fromYear}`;
+    const toDate = `${dates.toDay}/${dates.toMonth}/${dates.toYear}`;
+    const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&to=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&partner=picky&v=3`;
     
     fetch(flightUrl)
         .then(response => {
