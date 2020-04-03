@@ -77,12 +77,12 @@ function run_waitMe(selector){
 function processInput() {
     console.log("Processing input");
     try {
-        let dataObj = {};
-        dataObj.dates = processDates($("#dateRange").val());
-        dataObj.fromLocation = $("#fromLocation").val();
-        dataObj.toLocation = $("#toLocation").val();
-        dataObj.willDrive = $("#drive-switch").prop("checked");
-        handleApiCalls(dataObj);
+        let userInput = {};
+        userInput.dates = processDates($("#dateRange").val());
+        userInput.fromLocation = $("#fromLocation").val();
+        userInput.toLocation = $("#toLocation").val();
+        userInput.willDrive = $("#drive-switch").prop("checked");
+        handleApiCalls(userInput);
             
     }
     catch(e) {
