@@ -23,15 +23,15 @@ function getForm() {
   <form class="input-form">\
       <div class="row form-group input-item">\
           <label for="dateRange">Select travel dates:</label><br>\
-          <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" value="04-14-2020 to 04-15-2020"/>\
+          <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates"/>\
       </div>\
       <div class="row form-group input-item">\
           <label for="fromLocation">From:</label><br>\
-          <input type="text" id="fromLocation" class="form-control" value="Glasgow" placeholder="Enter an address, city or airport code" required/><br>\
+          <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code" required/><br>\
       </div>\
       <div class="row form-group input-item">\
           <label for="toLocation">To:</label><br>\
-          <input type="text" id="toLocation" class="form-control" value="London" placeholder="Enter an address, city or airport code" required/>\
+          <input type="text" id="toLocation" class="form-control" placeholder="Enter an address, city or airport code" required/>\
       </div>\
       <div class="d-none row custom-control custom-switch">\
           <input type="checkbox" class="custom-control-input" id="drive-switch">\
@@ -114,10 +114,6 @@ const restaurantData = `
   $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getHotels(something) {
-  return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
-}
-
 function getActivities(activities) {
 
 let activityList = "";
@@ -149,7 +145,8 @@ while (i < 3 && hotels[i] != undefined){
 
 const hotelData = `
     <div class="data-section">
-    <ul class="restaurant-list">${hotelList}</ul>`;
+    <h5>We recommend the following hotels for your trip:</h5>
+    <ul class="hotels-list">${hotelList}</ul>`;
   $("#hotels-container").append(hotelData);
   $("#hotels-container").waitMe("hide");
   $("#hotels-container").css("height", "auto");
