@@ -1,13 +1,12 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer TaVqASlHbEyAKZGzZedximdgEqzq';
 const sygicKey = 'LfjEzNsVq052BcUWp5vPwau3DjGZypaF5zZQzTua';
 const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
 // TO DO: get bearer token automatically
 // TO DO: fetch destination city
-// TO DO: fix flight parsing
 // TO DO: add driving directions
+// TO DO: add responsiveness
 
 function handleApiCalls(dataObj){
 
@@ -30,8 +29,10 @@ function handleApiCalls(dataObj){
             return callHotels(dataObj);
         })
         .then(function() {
+            return getAirportAuthorization(dataObj);
+        })
+        .then(function() {
             return getNearestAirport(dataObj, "to");
-            //getAirportAuthorization(dataObj);
         })
         .then(function() {
             return getNearestAirport(dataObj, "from");
@@ -95,7 +96,7 @@ function callRestaurants(dataObj){
 
 function getAirportAuthorization(dataObj) {
 
-    fetch("https://api.amadeus.com/v1/security/oauth2/token", {
+    return fetch("https://api.amadeus.com/v1/security/oauth2/token", {
         body: "grant_type=client_credentials&client_id=26QAEy7gXRIcAuMUOJHZg6oD9YPIolH3&client_secret=SNEAe0OOKJnoQ1cP",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -105,20 +106,17 @@ function getAirportAuthorization(dataObj) {
         })
         .then(response => {
             if (response.ok) {
-                console.log("in authorization");
-                console.log(response.text());
-                return response;
+                return response.json();
             }
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            console.log(responseJson.toString());
-            return responseJson.results[0];
+            console.log(responseJson);
+            dataObj.airportToken = responseJson.access_token;
+            return responseJson;
         })
-        .then(data => {
-            dataObj.fromLat = data.geometry.location.lat;
-            dataObj.fromLng = data.geometry.location.lng;
-            getNearestAirport1(dataObj);
+        .catch(e => {
+            showError(e, ["#flights-data"]);
         })
 }
 
@@ -131,7 +129,7 @@ function getNearestAirport(dataObj, type) {
 
     let data = fetch(airportUrl, {
         headers: {
-            'Authorization': airportCodeToken
+            'Authorization': "Bearer " + dataObj.airportToken
         }})
         .then(response => {
             if (response.ok) {
@@ -156,7 +154,7 @@ function getFlightInfomation(dataObj){
     const dates = dataObj.dates;
     const fromDate = `${dates.fromDay}/${dates.fromMonth}/${dates.fromYear}`;
     const toDate = `${dates.toDay}/${dates.toMonth}/${dates.toYear}`;
-    const flightUrl = `https://api.skypicker.com/flights?fly_from=${dataObj.fromAirport}&fly_to=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&v=3&partner=picky`;
+    const flightUrl = `https://api.skypicker.com/flights?fly_from=${dataObj.fromAirport}&fly_to=${dataObj.toAirport}&date_from=${fromDate}&date_to=${toDate}&v=3&partner=picky`;
     console.log(flightUrl);
     let data = fetch(flightUrl)
         .then(response => {

@@ -115,10 +115,6 @@ function getRestaurants(data, restaurants) {
     $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getHotels(something) {
-    return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
-}
-
 function getActivities(activities) {
   
   let activityList = "";
@@ -149,6 +145,7 @@ function getHotels(hotels) {
 
   const hotelData = `
       <div class="data-section">
+      <h6>We recommend the following hotels for your trip:</h6>
       <ul class="restaurant-list">${hotelList}</ul>`;
     $("#hotels-container").append(hotelData);
     $("#hotels-container").waitMe("hide");
