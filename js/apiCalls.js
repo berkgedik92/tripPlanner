@@ -1,5 +1,5 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer NoHUJSXGue2PoSsUsKmTonK7WITw';
+const airportCodeToken = 'Bearer TaVqASlHbEyAKZGzZedximdgEqzq';
 const sygicKey = 'LfjEzNsVq052BcUWp5vPwau3DjGZypaF5zZQzTua';
 const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
@@ -156,8 +156,8 @@ function getFlightInfomation(dataObj){
     const dates = dataObj.dates;
     const fromDate = `${dates.fromDay}/${dates.fromMonth}/${dates.fromYear}`;
     const toDate = `${dates.toDay}/${dates.toMonth}/${dates.toYear}`;
-    const flightUrl = `https://api.skypicker.com/flights?flyFrom=${dataObj.fromAirport}&flyTo=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&partner=picky&v=3`;
-    
+    const flightUrl = `https://api.skypicker.com/flights?fly_from=${dataObj.fromAirport}&fly_to=${dataObj.toAirport}&dateFrom=${fromDate}&dateTo=${toDate}&v=3&partner=picky`;
+    console.log(flightUrl);
     let data = fetch(flightUrl)
         .then(response => {
             if (response.ok) {

@@ -80,6 +80,7 @@ function getResultsContainers(data) {
 }
 
 function getFlights(data) {
+
     const flightData = `
       <div class="data-section">
       <h5>We found a great flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
@@ -126,7 +127,6 @@ function getActivities(activities) {
     activityList += `<li class="font-weight-bold"><a href="${activities[i].url}" target="_blank">${activities[i].name}</a> - ${activities[i].perex}</li>`;
     i++;
   }
-
 
   const activityData = `
     <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
