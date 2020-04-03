@@ -33,7 +33,7 @@ function getForm() {
           <label for="toLocation">To:</label><br>\
           <input type="text" id="toLocation" class="form-control" value="London" placeholder="Enter an address, city or airport code" required/>\
       </div>\
-      <div class="row custom-control custom-switch">\
+      <div class="d-none row custom-control custom-switch">\
           <input type="checkbox" class="custom-control-input" id="drive-switch">\
           <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
       </div>\
