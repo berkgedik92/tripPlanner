@@ -1,15 +1,13 @@
 const googleKey = "AIzaSyDd6YCw-6flTe8hl7pbtf2AG1ngj_uK6Ns";
-const airportCodeToken = 'Bearer whtCQX7P3u67HmvCIQHWl8WudScI';
+const airportCodeToken = 'Bearer NoHUJSXGue2PoSsUsKmTonK7WITw';
+const sygicKey = 'LfjEzNsVq052BcUWp5vPwau3DjGZypaF5zZQzTua';
 const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
 // TO DO: get bearer token automatically
 // TO DO: fetch destination city
 // TO DO: fix flight parsing
-// TO DO: add activities
-// TO DO: add hotels
 // TO DO: add driving directions
-// TO DO: add weather
 
 function handleApiCalls(dataObj){
 
@@ -24,6 +22,12 @@ function handleApiCalls(dataObj){
         })
         .then(function() {
             return callWeather(dataObj);
+        })
+        .then(function() {
+            return callActivities(dataObj);
+        })
+        .then(function() {
+            return callHotels(dataObj);
         })
         .then(function() {
             return getNearestAirport(dataObj, "to");
@@ -68,10 +72,8 @@ function getGeocoding(dataObj, type) {
 
 function callRestaurants(dataObj){
 
-    //const restaurantUrl = "https://developers.zomato.com/api/v2.1/geocode?lat=55.864237&lon=-4.251806";
     const restaurantUrl = `https://developers.zomato.com/api/v2.1/geocode?lat=${dataObj.toLat}&lon=${dataObj.toLng}`;
-    //return dataObj;
-    console.log(restaurantUrl);
+
     let data = fetch(restaurantUrl, { 
         headers: {
             "user-key": zomatoKey}})
@@ -191,7 +193,64 @@ function callWeather(dataObj){
             return responseJson;
         })
         .catch(e => {
-            showError(e, ["#flights-data"]);
+            showError(e, ["#weather-data"]);
+        });
+    return data;
+}
+
+function callActivities(dataObj) {
+
+    const activityUrl = `https://api.sygictravelapi.com/1.2/en/places/list?level=poi&area=${dataObj.toLat},${dataObj.toLng},5000&limit=3`;
+    let data = fetch(activityUrl, {
+        headers: {
+            'x-api-key': sygicKey
+        }})
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            if (Object.keys(responseJson.data).length > 0){
+                getActivities(responseJson.data.places);
+            }
+            else {
+                showError("Sorry - no activities to show for your destination.", ["#activities-data"]);
+            }
+            return responseJson;
+        })
+        .catch(e => {
+            showError(e, ["#activities-data"]);
+        });
+    return data;
+}
+
+function callHotels(dataObj) {
+
+    const hotelUrl = `https://api.sygictravelapi.com/1.2/en/places/list?area=${dataObj.toLat},${dataObj.toLng},5000&limit=3&categories=sleeping&class.slug=sleeping:hotel`;
+    
+    let data = fetch(hotelUrl, {
+        headers: {
+            'x-api-key': sygicKey
+        }})
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            if (Object.keys(responseJson.data).length > 0){
+                getHotels(responseJson.data.places);
+            }
+            else {
+                showError("Sorry - no hotels to show for your destination.", ["#hotels-data"]);
+            }
+            return responseJson;
+        })
+        .catch(e => {
+            showError(e, ["#hotels-data"]);
         });
     return data;
 }

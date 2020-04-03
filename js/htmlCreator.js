@@ -63,7 +63,7 @@ function getResultsContainers(data) {
         <div id="hotels-data"></div>
       </div>\
       <div id="activities-container" class="rd-flex flex-column result-box mb-3 col-sm-8">
-        <h4 class="result-heading">Activities <i class="fas fa-camera"></i></h4>\
+        <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
         <div id="activities-data"></div>
       </div>\
     </div>\
@@ -82,7 +82,7 @@ function getResultsContainers(data) {
 function getFlights(data) {
     const flightData = `
       <div class="data-section">
-      <h5>We found a flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
+      <h5>We found a great flight for you from <span class="font-weight-bold">${data.fromAirport}</span> to \
       <span class="font-weight-bold">${data.toAirport}</span> for <span class="font-weight-bold">$${data.flightPrice}</span>.</h5>\
       <a href="${data.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
     $("#flights-container").append(flightData);
@@ -97,7 +97,7 @@ function getRestaurants(data, restaurants) {
   let restaurantList = "";
   let i = 0;
 
-  while (i < 3 && restaurants[i]){
+  while (i < 3 && restaurants[i] != undefined){
     const priceRange = "$".repeat(restaurants[i].restaurant.price_range);
     restaurantList += `<li class="font-weight-bold"><a href="${restaurants[i].restaurant.url}" target="_blank">${restaurants[i].restaurant.name}</a> - ${restaurants[i].restaurant.cuisines} - ${priceRange}</li>`;
     i++;
@@ -112,15 +112,49 @@ function getRestaurants(data, restaurants) {
     $("#restaurants-container").css("height", "auto");
     $("#restaurants-container .data-section").css("opacity", "0");
     $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
-    //getWeather();
 }
 
 function getHotels(something) {
     return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
 }
 
-function getActivities(something) {
-    return `<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati cupiditate et dolor temporibus perferendis ut odit cumque illum? Voluptatum quasi perferendis cum voluptate? Eos praesentium nostrum, fugit voluptatum ea voluptates?</p>`;
+function getActivities(activities) {
+  
+  let activityList = "";
+  let i = 0;
+  while (i < 3 && activities[i] != undefined){
+    activityList += `<li class="font-weight-bold"><a href="${activities[i].url}" target="_blank">${activities[i].name}</a> - ${activities[i].perex}</li>`;
+    i++;
+  }
+
+
+  const activityData = `
+    <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
+      <div class="data-section">
+      <ul class="restaurant-list">${activityList}</ul>`;
+    $("#activities-container").html(activityData);
+    $("#activities-container").css("height", "auto");
+    $("#activities-container .data-section").css("opacity", "0");
+    $("#activities-container .data-section").animate({opacity: 1}, 3000)
+}
+
+function getHotels(hotels) {
+  
+  let hotelList = "";
+  let i = 0;
+  while (i < 3 && hotels[i] != undefined){
+    hotelList += `<li class="font-weight-bold"><a href="${hotels[i].url}" target="_blank">${hotels[i].name}</a></li>`;
+    i++;
+  }
+
+  const hotelData = `
+      <div class="data-section">
+      <ul class="restaurant-list">${hotelList}</ul>`;
+    $("#hotels-container").append(hotelData);
+    $("#hotels-container").waitMe("hide");
+    $("#hotels-container").css("height", "auto");
+    $("#hotels-container .data-section").css("opacity", "0");
+    $("#hotels-container .data-section").animate({opacity: 1}, 3000)
 }
 
 function getWeather(data) {
