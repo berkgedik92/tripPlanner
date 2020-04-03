@@ -20,10 +20,10 @@ function getWelcomePage() {
 function getForm() {
     return '<div class="form-container d-flex flex-column">\
     <h2 class="text-center">Let\'s plan your trip!</h2>\
-    <form class="input-form">\
+    <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates"/>\
+            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" required/>\
         </div>\
         <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
@@ -37,7 +37,7 @@ function getForm() {
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
             <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
-        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info">\
+        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
     </form>\
     <h5 id="error-message"></h5>\
   </div>';
