@@ -62,15 +62,22 @@ function getGeocoding(location) {
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            let result = responseJson.results[0];
-            return {
-                "city": result.formatted_address,
-                "lat": result.geometry.location.lat,
-                "lng": result.geometry.location.lng
-            };
+            if (responseJson.results.length > 0){
+                let result = responseJson.results[0];
+                return {
+                    "city": result.formatted_address,
+                    "lat": result.geometry.location.lat,
+                    "lng": result.geometry.location.lng
+                };
+            }
+            else {
+                $('#error-message').removeClass("d-none");
+                $("#error-message").html("At least one of your locations was not recognised. Please try again.");
+            }
         })
-        .catch(e => {
-            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
+        .catch(function() {
+            $('#error-message').removeClass("d-none");
+            $("#error-message").html("Something went wrong. Please try again.");
         });
 }
 
