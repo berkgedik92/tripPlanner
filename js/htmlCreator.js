@@ -10,7 +10,7 @@ function getWelcomePage() {
         </p>\
         </div>\
         <div class="m-4">\
-          <h4 class="text-center text-muted">Your one-stop site for planning your entire vacation.</h4>\
+          <h4 class="text-center text-muted">The one-stop site that takes the guesswork out of planning a vacation.</h4>\
           <h4 class="text-center text-muted">Are you ready?</h4>\
         </div>\
         <input type="submit" id="start-button" value="LET\'S GO &#11157" class="btn btn-lg btn-info align-self-center m-0">\
