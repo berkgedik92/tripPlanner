@@ -7,7 +7,7 @@ const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 // TO DO: fetch destination city properly (filter)
 // TO DO: add driving directions
 
-function handleApiCalls(userInput) {
+function startApiCalls(userInput) {
 
     // These 3 API calls will be run in parallel in the very beginning (step 1)
     let geoEncodingForToLocationPromise = fetchGeocoding(userInput.toLocation);

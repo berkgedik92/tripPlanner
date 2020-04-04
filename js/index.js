@@ -16,8 +16,17 @@ $(document).ready(function() {
 
     $(document).on('submit','.input-form',event => {
         event.preventDefault();
-        $('#error-message').addClass("d-none");
-        processInput();
+        let userInput;
+        try {
+            userInput = processInput();
+        }
+        catch(e) {
+            $('#error-message').removeClass("d-none");
+            $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
+            console.log(`Error: ${e}`);
+            return;
+        }
+        startApiCalls(userInput);
     })
 
     $(document).on('click', '#new-search-button', event =>{
@@ -85,20 +94,13 @@ function run_waitMe(selector){
 
 function processInput() {
     console.log("Processing input");
-    try {
-        let userInput = {};
-        userInput.dates = processDates($("#dateRange").val());
-        userInput.fromLocation = $("#fromLocation").val();
-        userInput.toLocation = $("#toLocation").val();
-        userInput.willDrive = $("#drive-switch").prop("checked");            
-    }
-    catch(e) {
-        $('#error-message').removeClass("d-none");
-        $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
-        console.log(`Error: ${e}`);
-        return;
-    }
-    handleApiCalls(userInput);
+    $('#error-message').addClass("d-none");
+    let userInput = {};
+    userInput.dates = processDates($("#dateRange").val());
+    userInput.fromLocation = $("#fromLocation").val();
+    userInput.toLocation = $("#toLocation").val();
+    userInput.willDrive = $("#drive-switch").prop("checked");
+    return userInput;            
 }
 
 function showError(error, containerSelectors) {
