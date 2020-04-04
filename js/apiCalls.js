@@ -76,11 +76,11 @@ function handleApiCalls(userInput) {
     .then(function(values) {
         let codeOfNearestAirportToCity = values[0];
         let codeOfNearestAirportFromCity = values[1];
-        return [
+        return Promise.all([
             fetchFlightInformation(userInput.dates, codeOfNearestAirportToCity, codeOfNearestAirportFromCity), 
             codeOfNearestAirportToCity, 
             codeOfNearestAirportFromCity
-        ];
+        ]);
     }).then(function(data) {
         let ticketData = data[0];
         let airportCodeToCity = data[1];
