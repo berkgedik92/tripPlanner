@@ -80,7 +80,7 @@ function getResultsContainers(data) {
   </div>`;
 }
 
-function getFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
+function renderFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
   const flightData = `
     <div class="data-section">
     <h5>We found a great flight for you from <span class="font-weight-bold">${airportCodeFromCity}</span> to \
@@ -95,7 +95,7 @@ function getFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
   $("#flights-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getRestaurants(locationData, restaurants) {
+function renderRestaurants(locationData, restaurants) {
 
   let restaurantList = "";
   let i = 0;
@@ -117,7 +117,7 @@ function getRestaurants(locationData, restaurants) {
     $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getActivities(activities) {
+function renderActivities(activities) {
 
   let activityList = "";
   let i = 0;
@@ -127,16 +127,18 @@ function getActivities(activities) {
   }
 
   const activityData = `
-    <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
-      <div class="data-section">
-      <ul class="activity-list">${activityList}</ul>`;
+    <div class="inner-container">
+            <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
+            <div class="data-section">
+        <ul class="activity-list">${activityList}</ul>
+    </div>`;
     $("#activities-container").html(activityData);
     $("#activities-container").css("height", "auto");
     $("#activities-container .data-section").css("opacity", "0");
     $("#activities-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getHotels(hotels) {
+function renderHotels(hotels) {
 
   let hotelList = "";
   let i = 0;
@@ -156,7 +158,7 @@ const hotelData = `
   $("#hotels-container .data-section").animate({opacity: 1}, 3000)
 }
 
-function getWeather(data) {
+function renderWeather(data) {
 
   let weatherForecasts = "";
   for (let i=1; i < 6; i++) {

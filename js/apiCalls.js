@@ -10,8 +10,8 @@ const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 function handleApiCalls(userInput) {
 
     Promise.all([
-            getGeocoding(userInput.toLocation), 
-            getGeocoding(userInput.fromLocation)
+            fetchGeocoding(userInput.toLocation), 
+            fetchGeocoding(userInput.fromLocation)
     ]).then(function(values) {
         let locationDataToCity = {
             "city": values[0].city,
@@ -36,20 +36,20 @@ function handleApiCalls(userInput) {
         fetchRestaurants(data.locationDataToCity);
         fetchActivities(data.locationDataToCity);
         fetchHotels(data.locationDataToCity);
-        return getAirportAuthorization(data.locationDataToCity, data.locationDataFromCity);
+        return fetchAirportAuthorization(data.locationDataToCity, data.locationDataFromCity);
     })
     .then(function(data) {
         return Promise.all([
-            getNearestAirport(data.locationDataToCity, data.apiToken), 
-            getNearestAirport(data.locationDataFromCity, data.apiToken)
+            fetchNearestAirport(data.locationDataToCity, data.apiToken), 
+            fetchNearestAirport(data.locationDataFromCity, data.apiToken)
         ]);
     })
     .then(function(values) {
-        return getFlightInfomation(userInput.dates, values[0], values[1]);
+        return fetchFlightInfomation(userInput.dates, values[0], values[1]);
     });
 }
 
-function getGeocoding(location) {
+function fetchGeocoding(location) {
 
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
     let finalUrl = url + "address=" + location.replace(" ", "+") + "&key=" + googleKey;
@@ -96,7 +96,7 @@ function fetchRestaurants(locationData){
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            getRestaurants(locationData, responseJson.nearby_restaurants);
+            renderRestaurants(locationData, responseJson.nearby_restaurants);
             return responseJson;
         })
         .catch(e => {
@@ -105,7 +105,7 @@ function fetchRestaurants(locationData){
     return promise;
 }
 
-function getAirportAuthorization(locationDataToCity, locationDataFromCity) {
+function fetchAirportAuthorization(locationDataToCity, locationDataFromCity) {
 
     return fetch("https://api.amadeus.com/v1/security/oauth2/token", {
         body: "grant_type=client_credentials&client_id=26QAEy7gXRIcAuMUOJHZg6oD9YPIolH3&client_secret=SNEAe0OOKJnoQ1cP",
@@ -132,7 +132,7 @@ function getAirportAuthorization(locationDataToCity, locationDataFromCity) {
         })
 }
 
-function getNearestAirport(locationData, apiToken) {
+function fetchNearestAirport(locationData, apiToken) {
 
     const airportUrl = `https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${locationData.lat}&longitude=${locationData.lng}`;
 
@@ -155,7 +155,7 @@ function getNearestAirport(locationData, apiToken) {
     return promise;
 }
 
-function getFlightInfomation(dates, airportCodeFromCity, airportCodeToCity) {
+function fetchFlightInfomation(dates, airportCodeFromCity, airportCodeToCity) {
 
     console.log("Fetching flights.");
     const fromDate = `${dates.fromDay}/${dates.fromMonth}/${dates.fromYear}`;
@@ -174,7 +174,7 @@ function getFlightInfomation(dates, airportCodeFromCity, airportCodeToCity) {
                 "flightLink": responseJson.data[0].deep_link,
                 "flightPrice": responseJson.data[0].price
             }
-            getFlights(ticketData, airportCodeFromCity, airportCodeToCity);
+            renderFlights(ticketData, airportCodeFromCity, airportCodeToCity);
         })
         .catch(e => {
             showError(e, ["#flights-data"]);
@@ -195,7 +195,7 @@ function fetchWeather(locationData){
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            getWeather(responseJson);
+            renderWeather(responseJson);
             return responseJson;
         })
         .catch(e => {
@@ -220,7 +220,7 @@ function fetchActivities(locationData) {
         })
         .then(responseJson => {
             if (Object.keys(responseJson.data).length > 0){
-                getActivities(responseJson.data.places);
+                renderActivities(responseJson.data.places);
             }
             else {
                 showError("Sorry - no activities to show for your destination.", ["#activities-data"]);
@@ -250,7 +250,7 @@ function fetchHotels(locationData) {
         })
         .then(responseJson => {
             if (Object.keys(responseJson.data).length > 0){
-                getHotels(responseJson.data.places);
+                renderHotels(responseJson.data.places);
             }
             else {
                 showError("Sorry - no hotels to show for your destination.", ["#hotels-data"]);
