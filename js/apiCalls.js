@@ -248,8 +248,12 @@ function fetchActivities(locationData) {
 
 function fetchHotels(locationData) {
 
-    const hotelUrl = `https://api.sygictravelapi.com/1.2/en/places/list?area=${locationData.lat},${locationData.lng},5000&limit=3&categories=sleeping&class.slug=sleeping:hotel`;
-    
+    let hotelUrl = new URL("https://api.sygictravelapi.com/1.2/en/places/list");
+    hotelUrl.searchParams.append("area", locationData.lat + "," + locationData.lng + ",5000");
+    hotelUrl.searchParams.append("limit", "3");
+    hotelUrl.searchParams.append("categories", "sleeping");
+    hotelUrl.searchParams.append("class.slug", "sleeping:hotel");
+
     let promise = fetch(hotelUrl, {
         headers: {
             'x-api-key': sygicKey
