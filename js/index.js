@@ -90,15 +90,15 @@ function processInput() {
         userInput.dates = processDates($("#dateRange").val());
         userInput.fromLocation = $("#fromLocation").val();
         userInput.toLocation = $("#toLocation").val();
-        userInput.willDrive = $("#drive-switch").prop("checked");
-        handleApiCalls(userInput);
-            
+        userInput.willDrive = $("#drive-switch").prop("checked");            
     }
     catch(e) {
         $('#error-message').removeClass("d-none");
         $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
         console.log(`Error: ${e}`);
+        return;
     }
+    handleApiCalls(userInput);
 }
 
 function showError(error, containerSelectors) {
