@@ -1,5 +1,5 @@
 function getWelcomePage() {
-    return '<div class="d-flex flex-column my-auto">\
+    return '<div class="d-flex flex-column">\
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
         <h1 class="text-center feature-text m-0 display-2 shiny">PLANNIT </h1>\
@@ -23,11 +23,11 @@ function getForm() {
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control"placeholder="Choose your travel dates" required/>\
+            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" required/>\
         </div>\
         <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control"placeholder="Enter an address, city or airport code" required/><br>\
+            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code" required/><br>\
         </div>\
         <div class="row form-group input-item">\
             <label for="toLocation">To:</label><br>\

@@ -35,6 +35,7 @@ function renderForm(){
 
 function renderResultsPage(data){
     console.log("Rendering results");
+    $(".main-container").removeClass("justify-content-center");
     $(".main-container").html(getResultsContainers(data));
 }
 
