@@ -66,7 +66,7 @@ function handleApiCalls(userInput) {
         return fetchNearestAirport(locationDataFromCity, apiToken);
     });
 
-    // This 1 API call (getFlightInfomation) willl be executed immediately after 
+    // This 1 API call (getFlightInformation) will be executed immediately after
     // "nearestAirportForToLocationPromise" and "nearestAirportForFromLocationPromise"
     // are both ready
     Promise.all([
