@@ -23,7 +23,7 @@ function getForm() {
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control" placeholder="Choose your travel dates" required/>\
+            <input type="text" id="dateRange" class="form-control"placeholder="Choose your travel dates" required/>\
         </div>\
         <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
@@ -84,7 +84,9 @@ function getFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
     <div class="data-section">
     <h5>We found a great flight for you from <span class="font-weight-bold">${airportCodeFromCity}</span> to \
     <span class="font-weight-bold">${airportCodeToCity}</span> for $<span class="font-weight-bold">${ticketData.flightPrice}</span>.</h5>\
-    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>`
+    <div class="text-center">\
+    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>\
+    </div>`
   $("#flights-container").append(flightData);
   $("#flights-container").waitMe("hide");
   $("#flights-container").css("height", "auto");
