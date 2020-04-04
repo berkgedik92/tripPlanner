@@ -1,5 +1,3 @@
-let dataObj = {};
-
 $(document).ready(function() {
     renderWelcomePage();
 
