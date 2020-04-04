@@ -110,6 +110,11 @@ function fetchGeocoding(location) {
             };
         })
         .catch(e => {
+            // There is one problem: If you end up here, it means that renderResultsPage and addLoading methods will not
+            // be called (since they wait for that method to succeed). It means that "showError" method (below) will
+            // not have a place to show the error. To reproduce the issue just use some nonexistent url for this API call
+            // what will happen is, all API promise chain will fail and you will not show any error message to user.
+            // you should think something to fix that
             showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
         });
 }
