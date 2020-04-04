@@ -31,9 +31,9 @@ function handleApiCalls(userInput) {
     })
     .then(function(data) {
         renderResultsPage(data);
-        addLoading();   
-        callRestaurants(data.locationDataToCity);
+        addLoading();
         callWeather(data.locationDataToCity);
+        callRestaurants(data.locationDataToCity);
         callActivities(data.locationDataToCity);
         callHotels(data.locationDataToCity);
         return getAirportAuthorization(data.locationDataToCity, data.locationDataFromCity);

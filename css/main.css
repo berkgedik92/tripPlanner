@@ -71,9 +71,6 @@
 #error-message {
     color: red;
 }
-#submit-form-button {
-    
-}
 
 /* RESULTS PAGE */
 .result-box {
@@ -92,7 +89,8 @@
 .results-page svg {
     font-size: 0.9em;
 }
-.restaurant-list a {
+.restaurant-list a,
+.hotels-list a {
     color: var(--main-accent-color);
 }
 .error,

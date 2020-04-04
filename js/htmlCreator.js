@@ -27,7 +27,7 @@ function getForm() {
         </div>\
         <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control" placeholder="Enter an address, city or airport code" required/><br>\
+            <input type="text" id="fromLocation" class="form-control"placeholder="Enter an address, city or airport code" required/><br>\
         </div>\
         <div class="row form-group input-item">\
             <label for="toLocation">To:</label><br>\
@@ -37,7 +37,7 @@ function getForm() {
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
             <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
-        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
+        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info">\
     </form>\
     <h5 id="error-message"></h5>\
   </div>';
@@ -84,7 +84,7 @@ function getFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
     <div class="data-section">
     <h5>We found a great flight for you from <span class="font-weight-bold">${airportCodeFromCity}</span> to \
     <span class="font-weight-bold">${airportCodeToCity}</span> for $<span class="font-weight-bold">${ticketData.flightPrice}</span>.</h5>\
-    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info">See flight</a></div>`;
+    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>`
   $("#flights-container").append(flightData);
   $("#flights-container").waitMe("hide");
   $("#flights-container").css("height", "auto");
@@ -105,7 +105,7 @@ function getRestaurants(locationData, restaurants) {
 
   const restaurantData = `
       <div class="data-section">
-      <h5>Here are some restaurants in <span class="font-weight-bold">${locationData.toCity}</span> for you.</h5>\
+      <h5>Here are some restaurants for you.</h5>\
       <ul class="restaurant-list">${restaurantList}</ul>`;
     $("#restaurants-container").append(restaurantData);
     $("#restaurants-container").waitMe("hide");
