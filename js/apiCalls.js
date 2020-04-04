@@ -33,6 +33,7 @@ function handleApiCalls(userInput) {
             }
         });
         fetchHotels(locationDataToCity).then(responseJson => {
+            console.log("If it was not for the added throw method in this commit we would reach here even if the fetch failed");
             if (Object.keys(responseJson.data).length > 0){
                 renderHotels(responseJson.data.places);
             }
@@ -271,6 +272,7 @@ function fetchHotels(locationData) {
         })
         .catch(e => {
             showError(e, ["#hotels-data"]);
+            throw e;
         });
     return promise;
 }
