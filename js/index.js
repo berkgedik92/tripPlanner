@@ -16,6 +16,7 @@ $(document).ready(function() {
 
     $(document).on('click', '#new-search-button', event =>{
         console.log("Starting new search");
+        $(".main-container").addClass("justify-content-center");
         renderForm();
     })
 });
