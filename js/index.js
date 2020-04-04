@@ -102,10 +102,11 @@ function processInput() {
 }
 
 function showError(error, containerSelectors) {
-    for (let i=0; i < containerSelectors.length; i++){
-        $(containerSelectors[i]).html(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
-        $(containerSelectors[i]).closest(".result-box").waitMe("hide");
-    }
+
+    containerSelectors.forEach(element => {
+        $(element).html(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
+        $(element).closest(".result-box").waitMe("hide");
+    });
     console.log(`Error: ${error}`);
 }
 
