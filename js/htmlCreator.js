@@ -19,7 +19,7 @@ function getWelcomePage() {
 
 function getForm() {
     return '<div class="form-container d-flex flex-column">\
-    <h2 class="text-center">Let\'s plan your trip!</h2>\
+    <h1 class="text-center">Let\'s plan your trip!</h1>\
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
