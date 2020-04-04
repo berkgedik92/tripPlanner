@@ -52,15 +52,15 @@
     color: black;
     transition: color 200ms linear;
 }
-.shiny:hover {
+.shiny.hovering, .shiny:hover {
     background-position: left center;
     color: #71befd;
     transition: background-position 2000ms ease-out;
 }
+
 .btn {
     margin: 2vh 2vw;
 }
-
 
 /* INPUT FORM */
 .input-item {

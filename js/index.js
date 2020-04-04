@@ -3,6 +3,14 @@ let dataObj = {};
 $(document).ready(function() {
     renderWelcomePage();
 
+    setTimeout(function() {
+        $(".shiny").addClass("hovering");
+        setTimeout(function() {
+            $(".shiny").removeClass("hovering");
+        }, 2000);
+    },1000)
+
+
     $(document).on('click', '#start-button', event =>{
         console.log("Rendering input form");
         renderForm();
