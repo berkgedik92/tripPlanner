@@ -32,10 +32,10 @@ function handleApiCalls(userInput) {
     .then(function(data) {
         renderResultsPage(data);
         addLoading();
-        callWeather(data.locationDataToCity);
-        callRestaurants(data.locationDataToCity);
-        callActivities(data.locationDataToCity);
-        callHotels(data.locationDataToCity);
+        fetchWeather(data.locationDataToCity);
+        fetchRestaurants(data.locationDataToCity);
+        fetchActivities(data.locationDataToCity);
+        fetchHotels(data.locationDataToCity);
         return getAirportAuthorization(data.locationDataToCity, data.locationDataFromCity);
     })
     .then(function(data) {
@@ -81,7 +81,7 @@ function getGeocoding(location) {
         });
 }
 
-function callRestaurants(locationData){
+function fetchRestaurants(locationData){
 
     console.log("Fetching restaurants.");
     const restaurantUrl = `https://developers.zomato.com/api/v2.1/geocode?lat=${locationData.lat}&lon=${locationData.lng}`;
@@ -100,7 +100,7 @@ function callRestaurants(locationData){
             return responseJson;
         })
         .catch(e => {
-            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
+            showError(e, ["#restaurants-data"]);
         });
     return promise;
 }
@@ -128,7 +128,7 @@ function getAirportAuthorization(locationDataToCity, locationDataFromCity) {
                 "apiToken": responseJson.access_token
             };
         }).catch(e => {
-            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
+            showError(e, ["#flights-data"]);
         })
 }
 
@@ -182,7 +182,7 @@ function getFlightInfomation(dates, airportCodeFromCity, airportCodeToCity) {
     return data;
 }
 
-function callWeather(locationData){
+function fetchWeather(locationData){
 
     console.log("Fetching the weather.");
     const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=e606e07a4c4e4513a58619045af84818&lat=${locationData.lat}&lon=${locationData.lng}`;
@@ -204,7 +204,7 @@ function callWeather(locationData){
     return data;
 }
 
-function callActivities(locationData) {
+function fetchActivities(locationData) {
 
     console.log("Fetching activities.");
     const activityUrl = `https://api.sygictravelapi.com/1.2/en/places/list?level=poi&area=${locationData.lat},${locationData.lng},5000&limit=3`;
@@ -233,7 +233,7 @@ function callActivities(locationData) {
     return data;
 }
 
-function callHotels(locationData) {
+function fetchHotels(locationData) {
 
     console.log("Fetching hotels.");
     const hotelUrl = `https://api.sygictravelapi.com/1.2/en/places/list?area=${locationData.lat},${locationData.lng},5000&limit=3&categories=sleeping&class.slug=sleeping:hotel`;

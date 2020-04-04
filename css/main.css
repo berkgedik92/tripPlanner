@@ -5,13 +5,13 @@
 :root {
     --main-font-color: #a0a0a0;
     --main-accent-color: #2492ad;
+    --secondary-accent-color: #25C5AD;
 }
 * {
     box-sizing: border-box;
     font-family: Quicksand, sans-serif;
     color: var(--main-font-color);
 }
-
 .main-container {
     height: 80vh;
     padding: 30px;
@@ -19,7 +19,7 @@
     border: 4px solid rgb(97, 196, 221);
     border-radius: 10px;
     overflow-y: auto;
-    /*overflow-wrap: break-word;*/
+    overflow-wrap: break-word;
     background-image: linear-gradient(to bottom right, rgb(240, 240, 240), #FFF, rgb(240, 240, 240));
 }
 .vertical-center {
@@ -32,6 +32,7 @@
     font-family: 'Cabin Sketch', Arial, Helvetica, sans-serif;
 }
 
+
 /* WELCOME PAGE */
 .welcome-icons path {
     color: rgb(196, 196, 196);
@@ -40,8 +41,8 @@
     margin: 0;
 }
 .shiny {
-    background-image: -webkit-linear-gradient(left, var(--main-font-color), #71befd 37.5%, #446ea5, #41acc7 62.5%, var(--main-font-color));
-    background-image: linear-gradient(90deg, var(--main-font-color), #71befd 37.5%, #446ea5, #41acc7 62.5%, var(--main-font-color) 75%);
+    background-image: -webkit-linear-gradient(left, var(--main-font-color), #71befd 37.5%, var(--secondary-accent-color), #41acc7 62.5%, var(--main-font-color));
+    background-image: linear-gradient(90deg, var(--main-font-color), #71befd 37.5%, var(--secondary-accent-color), #41acc7 62.5%, var(--main-font-color) 75%);
     background-position: right center;
     background-size: 400% auto;
     -webkit-background-clip: text;
@@ -65,11 +66,20 @@
 .input-item {
     margin-bottom: 20px;
 }
+.form-title {
+    font-family: 'Cabin Sketch', Arial, Helvetica, sans-serif;
+    margin-bottom: 4vh;
+}
 ::placeholder {
     font-style: italic;
 }
 #error-message {
     color: red;
+}
+.input-form label {
+    color: var(--secondary-accent-color);
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 /* RESULTS PAGE */
@@ -89,9 +99,13 @@
 .results-page svg {
     font-size: 0.9em;
 }
+.inner-container {
+    margin: 10px;
+}
 .restaurant-list a,
-.hotels-list a {
-    color: var(--main-accent-color);
+.hotels-list a,
+.activity-list a {
+    color: var(--secondary-accent-color);
 }
 .error,
 .error path {
@@ -105,4 +119,7 @@
 .weather-date,
 .temps {
     text-align: center;
+}
+.daily-forecasts path {
+    color: var(--secondary-accent-color);
 }

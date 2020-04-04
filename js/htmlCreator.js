@@ -19,7 +19,7 @@ function getWelcomePage() {
 
 function getForm() {
     return '<div class="form-container d-flex flex-column">\
-    <h1 class="text-center">Let\'s plan your trip!</h1>\
+    <h1 class="text-center form-title display-4">Let\'s plan your trip!</h1>\
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
@@ -37,41 +37,42 @@ function getForm() {
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
             <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
-        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info">\
+        <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
     </form>\
     <h5 id="error-message"></h5>\
   </div>';
 }
 
-// .no-gutters for margins
 function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
     <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.locationDataToCity.city}</span></h1>\
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
-        <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
-        <div id="flights-data"></div>
+        <div class="inner-container">
+          <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
+          <div id="flights-data"></div>
+        </div>
       </div>\
       <div id="restaurants-container" class="d-flex flex-column result-box mb-3 col-sm-5">
-        <h4 class="result-heading">Restaurants <i class="fas fa-utensils"></i></h4>\
-        <div id="restaurants-data"></div>
+        <div class="inner-container">
+          <h4 class="result-heading">Restaurants <i class="fas fa-utensils"></i></h4>\
+          <div id="restaurants-data"></div>
+        </div>
       </div>\
     </div>\
     <div class="row">\
       <div id="hotels-container" class="d-flex flex-column result-box mb-3 col-sm-4">
-        <h4 class="result-heading">Hotels <i class="fas fa-hotel"></i></h4>\
-        <div id="hotels-data"></div>
+        <div class="inner-container">
+          <h4 class="result-heading">Hotels <i class="fas fa-hotel"></i></h4>\
+          <div id="hotels-data"></div>
+        </div>
       </div>\
       <div id="activities-container" class="rd-flex flex-column result-box mb-3 col-sm-8">
-        <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
-        <div id="activities-data"></div>
+        </div>
       </div>\
     </div>\
     <div class="row">\
-      <div id="weather-container" class="d-flex flex-column result-box col-sm-12">\
-        <h4 class="result-heading">5-Day Forecast <i class="fas fa-cloud-sun"></i></h4>\
-        <div id="weather-data"></div>
-      </div>\
+      <div id="weather-container" class="d-flex flex-column result-box col-sm-12"></div>\
     </div>\
     <div class="row justify-content-center">\
       <input type="submit" id="new-search-button" value="new search &#10558" class="btn btn-md btn-info center mt-4 mb-0">\
@@ -128,7 +129,7 @@ function getActivities(activities) {
   const activityData = `
     <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
       <div class="data-section">
-      <ul class="restaurant-list">${activityList}</ul>`;
+      <ul class="activity-list">${activityList}</ul>`;
     $("#activities-container").html(activityData);
     $("#activities-container").css("height", "auto");
     $("#activities-container .data-section").css("opacity", "0");
@@ -165,8 +166,11 @@ function getWeather(data) {
   }
 
   const weatherData =  `
-    <h4 class="result-heading">5-Day Forecast in ${data.city_name} <i class="fas fa-cloud-sun"></i></h4>\
-    <div class="data-section row daily-forecasts">${weatherForecasts}</div>`;
+    <div class="inner-container">
+      <h4 class="result-heading">5-Day Forecast in ${data.city_name} <i class="fas fa-cloud-sun"></i></h4>\
+      <div class="data-section row daily-forecasts">${weatherForecasts}</div>
+    </div>`;
+    
   $("#weather-container").html(weatherData);
   $("#weather-container").css("height", "auto");
   $("#weather-container .data-section").css("opacity", "0");
