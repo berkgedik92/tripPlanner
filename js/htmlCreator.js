@@ -45,7 +45,7 @@ function getForm() {
 
 function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
-    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.locationDataToCity.city}</span></h1>\
+    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <div class="inner-container">
