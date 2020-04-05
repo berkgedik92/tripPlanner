@@ -7,14 +7,12 @@ const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 // TO DO: fetch destination city properly (filter)
 // TO DO: add driving directions
 
-function handleApiCalls(userInput) {
+function initiateApiCalls(userInput) {
 
-    // These 3 API calls will be run in parallel in the very beginning (step 1)
     let geoEncodingForToLocationPromise = fetchGeocoding(userInput.toLocation);
     let geoEncodingForFromLocationPromise = fetchGeocoding(userInput.fromLocation);
     let airportTokenFetchPromise = fetchAirportAuthorization();
     
-    // These 4 API calls will be run immediately after "geoEncodingForToLocationPromise" is ready
     geoEncodingForToLocationPromise.then(function(locationDataToCity) {
         renderResultsPage(locationDataToCity);
         addLoading();
@@ -42,8 +40,6 @@ function handleApiCalls(userInput) {
         });
     })
 
-    // This 1 API call (getNearestAirport for "toCity") will be executed immediately after
-    // "geoEncodingForToLocationPromise" and "airportTokenFetchPromise" are both ready
     let nearestAirportForToLocationPromise = Promise.all([
             geoEncodingForToLocationPromise, 
             airportTokenFetchPromise
@@ -54,8 +50,6 @@ function handleApiCalls(userInput) {
         return fetchNearestAirport(locationDataToCity, apiToken);
     });
 
-    // This 1 API call (getNearestAirport for "fromCity") will be executed immediately after
-    // "geoEncodingForFromLocationPromise" and "airportTokenFetchPromise" are both ready
     let nearestAirportForFromLocationPromise = Promise.all([
             geoEncodingForFromLocationPromise, 
             airportTokenFetchPromise
@@ -66,9 +60,6 @@ function handleApiCalls(userInput) {
         return fetchNearestAirport(locationDataFromCity, apiToken);
     });
 
-    // This 1 API call (getFlightInfomation) willl be executed immediately after 
-    // "nearestAirportForToLocationPromise" and "nearestAirportForFromLocationPromise"
-    // are both ready
     Promise.all([
         nearestAirportForToLocationPromise,
         nearestAirportForFromLocationPromise
@@ -76,15 +67,16 @@ function handleApiCalls(userInput) {
     .then(function(values) {
         let codeOfNearestAirportToCity = values[0];
         let codeOfNearestAirportFromCity = values[1];
-        return [
+        return Promise.all([
             fetchFlightInformation(userInput.dates, codeOfNearestAirportToCity, codeOfNearestAirportFromCity), 
             codeOfNearestAirportToCity, 
             codeOfNearestAirportFromCity
-        ];
+        ]);
     }).then(function(data) {
         let ticketData = data[0];
         let airportCodeToCity = data[1];
         let airportCodeFromCity = data[2];
+        console.log(ticketData);
         renderFlights(ticketData, airportCodeFromCity, airportCodeToCity);
     });
 }

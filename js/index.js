@@ -3,9 +3,20 @@ let dataObj = {};
 $(document).ready(function() {
     renderWelcomePage();
 
+    setTimeout(function() {
+        $(".shiny").addClass("initial-shine");
+        setTimeout(function() {
+            $(".shiny").removeClass("initial-shine");
+        }, 2000);
+    },1000)
+
     $(document).on('click', '#start-button', event =>{
         console.log("Rendering input form");
         renderForm();
+    })
+
+    $(window).on('load', '#blah', event =>{
+        $(this).trigger("mouseover");
     })
 
     $(document).on('submit','.input-form',event => {
@@ -85,7 +96,7 @@ function processInput() {
         userInput.fromLocation = $("#fromLocation").val();
         userInput.toLocation = $("#toLocation").val();
         userInput.willDrive = $("#drive-switch").prop("checked");
-        handleApiCalls(userInput);
+        initiateApiCalls(userInput);
             
     }
     catch(e) {
