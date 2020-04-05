@@ -1,5 +1,3 @@
-let dataObj = {};
-
 $(document).ready(function() {
     renderWelcomePage();
 
@@ -8,7 +6,7 @@ $(document).ready(function() {
         setTimeout(function() {
             $(".shiny").removeClass("initial-shine");
         }, 2000);
-    },1000)
+    },500)
 
     $(document).on('click', '#start-button', event =>{
         console.log("Rendering input form");
@@ -31,6 +29,15 @@ $(document).ready(function() {
         renderForm();
     })
 });
+
+/*$(document).on("load", ".results-page", function(){
+    setTimeout(function() {
+        $(".shiny").addClass("initial-shine");
+        setTimeout(function() {
+            $(".shiny").removeClass("initial-shine");
+        }, 2000);
+    },500)
+})*/
 
 function renderWelcomePage(){
     $(".main-container").html(getWelcomePage());
@@ -107,10 +114,10 @@ function processInput() {
 }
 
 function showError(error, containerSelectors) {
-    for (let i=0; i < containerSelectors.length; i++){
-        $(containerSelectors[i]).html(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
-        $(containerSelectors[i]).closest(".result-box").waitMe("hide");
-    }
+    containerSelectors.forEach(element => {
+        $(element).html(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
+        $(element).closest(".result-box").waitMe("hide");
+    });
     console.log(`Error: ${error}`);
 }
 
