@@ -17,6 +17,7 @@ $(document).ready(function() {
     $(document).on('submit','.input-form',event => {
         event.preventDefault();
         let userInput;
+        $('#error-message').addClass("d-none");
         try {
             userInput = processInput();
         }
@@ -94,7 +95,6 @@ function run_waitMe(selector){
 
 function processInput() {
     console.log("Processing input");
-    $('#error-message').addClass("d-none");
     let userInput = {};
     userInput.dates = processDates($("#dateRange").val());
     userInput.fromLocation = $("#fromLocation").val();
