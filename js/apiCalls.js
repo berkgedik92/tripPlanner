@@ -41,7 +41,11 @@ function startApiCalls(userInput) {
                 showError("Sorry - no hotels to show for your destination.", ["#hotels-data"]);
             }
         });
-    })
+    }).catch(e => {
+        showError(e, ["#restaurants-data", "#weather-data", "#activities-data", "#hotels-data"]);
+        throw e;
+    });
+
 
     // This 1 API call (getNearestAirport for "toCity") will be executed immediately after
     // "geoEncodingForToLocationPromise" and "airportTokenFetchPromise" are both ready
@@ -87,6 +91,8 @@ function startApiCalls(userInput) {
         let airportCodeToCity = data[1];
         let airportCodeFromCity = data[2];
         renderFlights(ticketData, airportCodeFromCity, airportCodeToCity);
+    }).catch(e => {
+        showError(e, ["#flights-data"]);
     });
 }
 
@@ -95,7 +101,7 @@ function fetchGeocoding(location) {
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
     let finalUrl = url + "address=" + location.replace(" ", "+") + "&key=" + googleKey;
 
-    return data = fetch(finalUrl)
+    return fetch(finalUrl)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -109,14 +115,6 @@ function fetchGeocoding(location) {
                 "lat": result.geometry.location.lat,
                 "lng": result.geometry.location.lng
             };
-        })
-        .catch(e => {
-            // There is one problem: If you end up here, it means that renderResultsPage and addLoading methods will not
-            // be called (since they wait for that method to succeed). It means that "showError" method (below) will
-            // not have a place to show the error. To reproduce the issue just use some nonexistent url for this API call
-            // what will happen is, all API promise chain will fail and you will not show any error message to user.
-            // you should think something to fix that
-            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
         });
 }
 
@@ -161,9 +159,7 @@ function fetchAirportAuthorization() {
         .then(responseJson => {
             console.log(responseJson);
             return responseJson.access_token;
-        }).catch(e => {
-            showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
-        })
+        });
 }
 
 function fetchNearestAirport(locationData, apiToken) {
