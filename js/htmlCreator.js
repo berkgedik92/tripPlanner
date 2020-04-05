@@ -51,7 +51,7 @@ function getResultsContainers(data) {
         <div class="inner-container">
           <h4 class="result-heading">Flights <i class="fas fa-plane-departure"></i></h4>\
           <div id="flights-data"></div>
-        </div>
+        </div>\
       </div>\
       <div id="restaurants-container" class="d-flex flex-column result-box mb-3 col-sm-5">
         <div class="inner-container">
@@ -64,15 +64,23 @@ function getResultsContainers(data) {
       <div id="hotels-container" class="d-flex flex-column result-box mb-3 col-sm-4">
         <div class="inner-container">
           <h4 class="result-heading">Hotels <i class="fas fa-hotel"></i></h4>\
-          <div id="hotels-data"></div>
-        </div>
+          <div id="hotels-data"></div>\
+        </div>\
       </div>\
-      <div id="activities-container" class="rd-flex flex-column result-box mb-3 col-sm-8">
+      <div id="activities-container" class="rd-flex flex-column result-box mb-3 col-sm-8">\
+        <div class="inner-container">\
+          <h4 class="result-heading">Things To Do <i class="fas fa-camera"></i></h4>\
+          <div id="activities-data"></div>
         </div>
       </div>\
     </div>\
     <div class="row">\
-      <div id="weather-container" class="d-flex flex-column result-box col-sm-12"></div>\
+      <div id="weather-container" class="d-flex flex-column result-box col-sm-12">\
+        <div class="inner-container">\
+          <h4 class="result-heading">5-Day Forecast in ${data.city} <i class="fas fa-cloud-sun"></i></h4>\
+          <div id="weather-data"></div>\
+        </div>\
+      </div>\
     </div>\
     <div class="row justify-content-center">\
       <input type="submit" id="new-search-button" value="new search &#10558" class="btn btn-md btn-info center mt-4 mb-0">\
@@ -82,17 +90,16 @@ function getResultsContainers(data) {
 
 function renderFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
   const flightData = `
-    <div class="data-section">
     <h5>We found a great flight for you from <span class="font-weight-bold">${airportCodeFromCity}</span> to \
     <span class="font-weight-bold">${airportCodeToCity}</span> for $<span class="font-weight-bold">${ticketData.flightPrice}</span>.</h5>\
     <div class="text-center">\
-    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>\
-    </div>`
-  $("#flights-container").append(flightData);
+    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>`
+
+  $("#flights-data").html(flightData);
   $("#flights-container").waitMe("hide");
   $("#flights-container").css("height", "auto");
-  $("#flights-container .data-section").css("opacity", "0");
-  $("#flights-container .data-section").animate({opacity: 1}, 3000)
+  $("#flights-data").css("opacity", "0");
+  $("#flights-data").animate({opacity: 1}, 3000)
 }
 
 function renderRestaurants(locationData, restaurants) {
@@ -107,14 +114,14 @@ function renderRestaurants(locationData, restaurants) {
   }
 
   const restaurantData = `
-      <div class="data-section">
       <h5>Here are some restaurants for you.</h5>\
       <ul class="restaurant-list">${restaurantList}</ul>`;
-    $("#restaurants-container").append(restaurantData);
-    $("#restaurants-container").waitMe("hide");
-    $("#restaurants-container").css("height", "auto");
-    $("#restaurants-container .data-section").css("opacity", "0");
-    $("#restaurants-container .data-section").animate({opacity: 1}, 3000)
+
+  $("#restaurants-data").html(restaurantData);
+  $("#restaurants-container").waitMe("hide");
+  $("#restaurants-container").css("height", "auto");
+  $("#restaurants-data").css("opacity", "0");
+  $("#restaurants-data").animate({opacity: 1}, 3000)
 }
 
 function renderActivities(activities) {
@@ -126,16 +133,13 @@ function renderActivities(activities) {
     i++;
   }
 
-  const activityData = `
-    <div class="inner-container">
-            <h4 class="result-heading">Things to do <i class="fas fa-camera"></i></h4>\
-            <div class="data-section">
-        <ul class="activity-list">${activityList}</ul>
-    </div>`;
-    $("#activities-container").html(activityData);
-    $("#activities-container").css("height", "auto");
-    $("#activities-container .data-section").css("opacity", "0");
-    $("#activities-container .data-section").animate({opacity: 1}, 3000)
+  const activityData = `<ul class="activity-list">${activityList}</ul>`;
+
+  $("#activities-data").html(activityData);
+  $("#activities-container").css("height", "auto");
+  $("#activities-container").waitMe("hide");
+  $("#activities-data").css("opacity", "0");
+  $("#activities-data").animate({opacity: 1}, 3000)
 }
 
 function renderHotels(hotels) {
@@ -147,15 +151,15 @@ function renderHotels(hotels) {
     i++;
 }
 
-const hotelData = `
-    <div class="data-section">
+  const hotelData = `
     <h5>We recommend the following hotels for your trip:</h5>
     <ul class="hotels-list">${hotelList}</ul>`;
-  $("#hotels-container").append(hotelData);
+
+  $("#hotels-data").html(hotelData);
   $("#hotels-container").waitMe("hide");
   $("#hotels-container").css("height", "auto");
-  $("#hotels-container .data-section").css("opacity", "0");
-  $("#hotels-container .data-section").animate({opacity: 1}, 3000)
+  $("#hotels-data").css("opacity", "0");
+  $("#hotels-data").animate({opacity: 1}, 3000)
 }
 
 function renderWeather(data) {
@@ -167,14 +171,11 @@ function renderWeather(data) {
     weatherForecasts += `<div class="col d-flex flex-column">${icon}<h5 class="weather-date">${cur.valid_date.slice(5)}</h5><h6 class="temps">${convertToFarenheit(cur.min_temp)}°F | ${convertToFarenheit(cur.max_temp)}°F</div>`;
   }
 
-  const weatherData =  `
-    <div class="inner-container">
-      <h4 class="result-heading">5-Day Forecast in ${data.city_name} <i class="fas fa-cloud-sun"></i></h4>\
-      <div class="data-section row daily-forecasts">${weatherForecasts}</div>
-    </div>`;
+  const weatherData =  `<div class="row daily-forecasts">${weatherForecasts}</div>`;
     
-  $("#weather-container").html(weatherData);
+  $("#weather-data").html(weatherData);
   $("#weather-container").css("height", "auto");
-  $("#weather-container .data-section").css("opacity", "0");
-  $("#weather-container .data-section").animate({opacity: 1}, 3000)
+  $("#weather-container").waitMe("hide");
+  $("#weather-data").css("opacity", "0");
+  $("#weather-data").animate({opacity: 1}, 3000)
 }
