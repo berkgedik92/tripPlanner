@@ -119,12 +119,18 @@ function renderRestaurants(locationData, restaurants) {
 
 function renderActivities(activities) {
 
-  let activityList = "";
-  let i = 0;
-  while (i < 3 && activities[i] != undefined){
-    activityList += `<li class="font-weight-bold"><a href="${activities[i].url}" target="_blank">${activities[i].name}</a> - ${activities[i].perex}</li>`;
-    i++;
-  }
+  const activityList = activities
+    // Remove undefined elements
+    .filter(x => x) 
+    // Take the first 3 elements (if there are less than 3 elements it will take all elements)
+    .slice(0, 3)
+    // For each activity, transform it to corresponding HTML code (this will give us a list of HTML strings)
+    .map(activity => `<li class="font-weight-bold"><a href="${activity.url}" target="_blank">${activity.name}</a> - ${activity.perex}</li>`)
+    // Convert the list that we get above into one string 
+    // (between each element of the list put "" 
+    // (if we used join() instead, it would act as if we said join(",") 
+    // which would mean put "," between each element))
+    .join("");
 
   const activityData = `
     <div class="inner-container">
