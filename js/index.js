@@ -1,12 +1,7 @@
 $(document).ready(function() {
     renderWelcomePage();
 
-    setTimeout(function() {
-        $(".shiny").addClass("initial-shine");
-        setTimeout(function() {
-            $(".shiny").removeClass("initial-shine");
-        }, 2000);
-    },500)
+    triggerTextShine();
 
     $(document).on('click', '#start-button', event =>{
         console.log("Rendering input form");
@@ -30,14 +25,14 @@ $(document).ready(function() {
     })
 });
 
-/*$(document).on("load", ".results-page", function(){
+function triggerTextShine(){
     setTimeout(function() {
         $(".shiny").addClass("initial-shine");
         setTimeout(function() {
             $(".shiny").removeClass("initial-shine");
         }, 2000);
     },500)
-})*/
+}
 
 function renderWelcomePage(){
     $(".main-container").html(getWelcomePage());
@@ -50,6 +45,7 @@ function renderForm(){
         format: 'MM-DD-YYYY'
     } 
     $('#dateRange').dateRangePicker(config);
+    triggerTextShine();
 }
 
 function renderResultsPage(data){
@@ -57,6 +53,7 @@ function renderResultsPage(data){
     $(".main-container").removeClass("justify-content-center");
     console.log(data);
     $(".main-container").html(getResultsContainers(data));
+    triggerTextShine();
 }
 
 function processDates(dates){
@@ -117,6 +114,7 @@ function showError(error, containerSelectors) {
     containerSelectors.forEach(element => {
         $(element).html(`<h5 class="error">Whoops! We were unable to fetch this information. Our bad! <i class="far fa-frown-open"></i></h5>`);
         $(element).closest(".result-box").waitMe("hide");
+        $(element).closest(".result-box").css("height", "auto");
     });
     console.log(`Error: ${error}`);
 }

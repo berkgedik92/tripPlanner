@@ -13,13 +13,13 @@
     color: var(--main-font-color);
 }
 .main-container {
-    height: 80vh;
+    height: auto;
+    margin: 15vh auto;
     padding: 30px;
-    max-width: 60%;
+    max-width: 80vw;
     border: 4px solid rgb(97, 196, 221);
     border-radius: 10px;
     overflow-y: auto;
-    overflow-wrap: break-word;
     background-image: linear-gradient(to bottom right, rgb(240, 240, 240), #FFF, rgb(240, 240, 240));
 }
 .vertical-center {
@@ -35,10 +35,13 @@
 
 /* WELCOME PAGE */
 .welcome-icons path {
-    color: rgb(196, 196, 196);
+    color: rgba(144, 247, 233, 0.534);
 }
-.brand-area-item {
-    margin: 0;
+.brand-area svg {
+    font-size: 50px;
+}
+.feature-text {
+    font-size: 60px;
 }
 .shiny {
     background-image: -webkit-linear-gradient(left, var(--main-font-color), #71befd 37.5%, var(--secondary-accent-color), #41acc7 62.5%, var(--main-font-color));
@@ -99,8 +102,8 @@
 .results-page svg {
     font-size: 0.9em;
 }
-.inner-container {
-    margin: 10px;
+.inner-container{
+    padding: 10px;
 }
 .restaurant-list a,
 .hotels-list a,
@@ -122,4 +125,25 @@
 }
 .daily-forecasts path {
     color: var(--secondary-accent-color);
+}
+
+@media only screen and (min-width: 600px){
+    .brand-area svg {
+        font-size: 65px;
+    }
+    .feature-text {
+        font-size: 75px;
+    }
+    .main-container {
+        max-width: 60vw;
+    }
+}
+
+@media only screen and (min-width: 850px){
+    .brand-area svg {
+        font-size: 75px;
+    }
+    .feature-text {
+        font-size: 95px;
+    }
 }

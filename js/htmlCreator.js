@@ -2,8 +2,8 @@ function getWelcomePage() {
     return '<div class="d-flex flex-column">\
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
-        <h1 class="text-center feature-text m-0 display-2 shiny" id="blah">PLANNIT </h1>\
-        <p class="welcome-icons text-center m-0 display-1 text-muted">\
+        <h1 class="text-center feature-text m-0 shiny">PLANNIT </h1>\
+        <p class="welcome-icons text-center m-0">\
           <i class="fas fa-globe-americas"></i>\
           <i class="fas fa-plane plane"></i>\
           <i class="fas fa-sun"></i>\
@@ -19,7 +19,7 @@ function getWelcomePage() {
 
 function getForm() {
     return '<div class="form-container d-flex flex-column">\
-    <h1 class="text-center form-title display-4">Let\'s plan your trip!</h1>\
+    <h1 class="text-center form-title display-4 shiny">Let\'s plan your trip!</h1>\
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
@@ -45,7 +45,7 @@ function getForm() {
 
 function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
-    <h1 class="text-center display-4 mb-4">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
+    <h1 class="text-center display-4 mb-4 feature-text">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <div class="inner-container">
@@ -93,7 +93,7 @@ function renderFlights(ticketData, airportCodeFromCity, airportCodeToCity) {
     <h5>We found a great flight for you from <span class="font-weight-bold">${airportCodeFromCity}</span> to \
     <span class="font-weight-bold">${airportCodeToCity}</span> for $<span class="font-weight-bold">${ticketData.flightPrice}</span>.</h5>\
     <div class="text-center">\
-    <a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div>`
+    <div class="d-flex justify-content-center align-items-center"><a href="${ticketData.flightLink}" target="_blank" class="btn btn-lg btn-info align-self-center">See flight</a></div></div>`
 
   $("#flights-data").html(flightData);
   $("#flights-container").waitMe("hide");

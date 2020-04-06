@@ -76,7 +76,6 @@ function initiateApiCalls(userInput) {
         let ticketData = data[0];
         let airportCodeToCity = data[1];
         let airportCodeFromCity = data[2];
-        console.log(ticketData);
         renderFlights(ticketData, airportCodeFromCity, airportCodeToCity);
     });
 }
@@ -103,6 +102,7 @@ function fetchGeocoding(location) {
         })
         .catch(e => {
             showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
+            throw e;
         });
 }
 
@@ -124,6 +124,7 @@ function fetchRestaurants(locationData){
         })
         .catch(e => {
             showError(e, ["#restaurants-data"]);
+            throw e;
         });
     return promise;
 }
@@ -145,10 +146,10 @@ function fetchAirportAuthorization() {
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            console.log(responseJson);
             return responseJson.access_token;
         }).catch(e => {
             showError(e, ["#flights-data", "#restaurants-data", "#hotels-data", "#activities-data", "#weather-data"]);
+            throw e;
         })
 }
 
@@ -172,6 +173,7 @@ function fetchNearestAirport(locationData, apiToken) {
         })
         .catch(e => {
             showError(e, ["#flights-data"]);
+            throw e;
         });
     return promise;
 }
@@ -198,6 +200,7 @@ function fetchFlightInformation(dates, airportCodeFromCity, airportCodeToCity) {
         })
         .catch(e => {
             showError(e, ["#flights-data"]);
+            throw e;
         });
     return promise;
 }
@@ -215,6 +218,7 @@ function fetchWeather(locationData){
         })
         .catch(e => {
             showError(e, ["#weather-data"]);
+            throw e;
         });
     return promise;
 }
@@ -234,6 +238,7 @@ function fetchActivities(locationData) {
         })
         .catch(e => {
             showError(e, ["#activities-data"]);
+            throw e;
         });
     return promise;
 }
@@ -254,6 +259,7 @@ function fetchHotels(locationData) {
         })
         .catch(e => {
             showError(e, ["#hotels-data"]);
+            throw e;
         });
     return promise;
 }
