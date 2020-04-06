@@ -3,7 +3,7 @@ function getWelcomePage() {
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
         <h1 class="text-center feature-text m-0 shiny">PLANNIT </h1>\
-        <p class="welcome-icons text-center m-0">\
+        <p class="welcome-icons text-center my-0">\
           <i class="fas fa-globe-americas"></i>\
           <i class="fas fa-plane plane"></i>\
           <i class="fas fa-sun"></i>\
