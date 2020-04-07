@@ -5,8 +5,14 @@ const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
 function initiateApiCalls(userInput) {
     
-    let geoEncodingForToLocationPromise = fetchGeocoding(userInput.toLocation);
-    let geoEncodingForFromLocationPromise = fetchGeocoding(userInput.fromLocation);
+    let geoEncodingForToLocationPromise = fetchGeocoding(userInput.toLocation).catch(e => {
+            $('#error-message').removeClass("d-none");
+            $("#error-message").html(e.toString());
+    });
+    let geoEncodingForFromLocationPromise = fetchGeocoding(userInput.fromLocation).catch(e => {
+            $('#error-message').removeClass("d-none");
+            $("#error-message").html(e.toString());
+    });
     let airportTokenFetchPromise = fetchAirportAuthorization();
     
     geoEncodingForToLocationPromise.then(function(locationDataToCity) {

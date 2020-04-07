@@ -15,13 +15,12 @@ $(document).ready(function() {
         event.preventDefault();	        
         $('#error-message').addClass("d-none");	        
         let userInput;
-        processInput();	        
         try {
             userInput = processInput();
         }
         catch(e) {
             $('#error-message').removeClass("d-none");
-            $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
+            $("#error-message").html(e.toString());
             return;
         }
         initiateApiCalls(userInput);
@@ -73,9 +72,7 @@ function getCity(jsonData) {
         return jsonData.formatted_address;
     }
     catch(e) {
-        $('#error-message').removeClass("d-none");
-        $("#error-message").html("Please ensure that both of your locations are valid and try again.");
-        throw e;
+        throw new Error("Please ensure that both of your locations are valid and try again.");
     }
 }
 
@@ -106,9 +103,7 @@ function processDates(dates){
         return datesObject;
     }
     catch(e) {
-        $('#error-message').removeClass("d-none");
-        $("#error-message").html("Please ensure that you have entered valid dates and try again.");
-        throw e;
+        throw new Error("Please ensure that you have entered valid dates and try again.");
     }
 }
 
