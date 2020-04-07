@@ -23,15 +23,15 @@ function getForm() {
     <form class="input-form d-flex flex-column">\
         <div class="row form-group input-item">\
             <label for="dateRange">Select travel dates:</label><br>\
-            <input type="text" id="dateRange" class="form-control" value="05-14-2020 to 05-24-2020" placeholder="Choose your travel dates" required/>\
+            <input type="text" id="dateRange" class="form-control" value="" placeholder="Choose your travel dates" required/>\
         </div>\
         <div class="row form-group input-item">\
             <label for="fromLocation">From:</label><br>\
-            <input type="text" id="fromLocation" class="form-control" value="Glasgow" placeholder="Enter an address, city or airport code" required/><br>\
+            <input type="text" id="fromLocation" class="form-control" value="" placeholder="Enter an address, city or airport code" required/><br>\
         </div>\
         <div class="row form-group input-item">\
             <label for="toLocation">To:</label><br>\
-            <input type="text" id="toLocation" class="form-control" value="London" placeholder="Enter an address, city or airport code" required/>\
+            <input type="text" id="toLocation" class="form-control" value="" placeholder="Enter an address, city or airport code" required/>\
         </div>\
         <div class="d-none row custom-control custom-switch">\
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
