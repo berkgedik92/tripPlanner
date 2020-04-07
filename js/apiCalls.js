@@ -78,6 +78,19 @@ function initiateApiCalls(userInput) {
     });
 }
 
+function getDestination(jsonData) {
+    let city = jsonData.formatted_address;
+    try {
+        const condition = d => d.types.includes("locality");
+        const results = jsonData.address_components.filter(condition);
+        city = results[0].short_name;
+    }
+    catch {
+        console.log("Could not extract specific destination name.")
+    }
+    return city;
+}
+
 function fetchGeocoding(location) {
 
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";
@@ -92,8 +105,9 @@ function fetchGeocoding(location) {
         })
         .then(responseJson => {
             let result = responseJson.results[0];
+            console.log(result);
             return {
-                "city": result.formatted_address,
+                "city": getDestination(result),
                 "lat": result.geometry.location.lat,
                 "lng": result.geometry.location.lng
             };
