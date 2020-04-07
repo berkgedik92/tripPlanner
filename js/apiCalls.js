@@ -3,9 +3,7 @@ const sygicKey = 'LfjEzNsVq052BcUWp5vPwau3DjGZypaF5zZQzTua';
 const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
-// TO DO: add responsiveness
 // TO DO: fetch destination city properly (filter)
-// TO DO: add driving directions
 
 function initiateApiCalls(userInput) {
 
