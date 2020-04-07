@@ -3,10 +3,8 @@ const sygicKey = 'LfjEzNsVq052BcUWp5vPwau3DjGZypaF5zZQzTua';
 const zomatoKey = 'b64a9c8703fd9bc8c25e42d00a77483a';
 const weatherKey = '3db728c82d3258b9e8c9428b59965f1a';
 
-// TO DO: fetch destination city properly (filter)
-
 function initiateApiCalls(userInput) {
-
+    
     let geoEncodingForToLocationPromise = fetchGeocoding(userInput.toLocation);
     let geoEncodingForFromLocationPromise = fetchGeocoding(userInput.fromLocation);
     let airportTokenFetchPromise = fetchAirportAuthorization();
@@ -78,17 +76,21 @@ function initiateApiCalls(userInput) {
     });
 }
 
-function getDestination(jsonData) {
-    let city = jsonData.formatted_address;
+function getCity(jsonData) {
+    
     try {
         const condition = d => d.types.includes("locality");
         const results = jsonData.address_components.filter(condition);
-        city = results[0].short_name;
+        if (results.length > 0){
+            return results[0].short_name;
+        }
+        return jsonData.formatted_address;
     }
-    catch {
-        console.log("Could not extract specific destination name.")
+    catch(e) {
+        $('#error-message').removeClass("d-none");
+        $("#error-message").html("Please ensure that both of your locations are valid and try again.");
+        throw e;
     }
-    return city;
 }
 
 function fetchGeocoding(location) {
@@ -105,9 +107,8 @@ function fetchGeocoding(location) {
         })
         .then(responseJson => {
             let result = responseJson.results[0];
-            console.log(result);
             return {
-                "city": getDestination(result),
+                "city": getCity(result),
                 "lat": result.geometry.location.lat,
                 "lng": result.geometry.location.lng
             };
@@ -180,7 +181,6 @@ function fetchNearestAirport(locationData, apiToken) {
             throw new Error(response.statusText);
         })
         .then(responseJson => {
-            console.log(`${responseJson.data[0].iataCode}`);
             return responseJson.data[0].iataCode;
         })
         .catch(e => {

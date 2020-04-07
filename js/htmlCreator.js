@@ -37,9 +37,9 @@ function getForm() {
             <input type="checkbox" class="custom-control-input" id="drive-switch">\
             <label class="custom-control-label" for="drive-switch">I\'d rather drive</label>\
         </div>\
+        <h5 id="error-message"></h5>\
         <input type="submit" id="submit-form-button" value="Submit" class="btn btn-lg btn-outline-info align-self-center">\
     </form>\
-    <h5 id="error-message"></h5>\
   </div>';
 }
 
