@@ -2,7 +2,7 @@ function getWelcomePage() {
     return '<div class="d-flex flex-column">\
       <h2 class="text-center text-muted">Welcome to</h2>\
       <div class="brand-area">\
-        <h1 class="text-center feature-text m-0 shiny">PLANNIT </h1>\
+        <h1 class="text-center m-0 shiny">PLANNIT </h1>\
         <p class="welcome-icons text-center my-0">\
           <i class="fas fa-globe-americas"></i>\
           <i class="fas fa-plane plane"></i>\
@@ -45,7 +45,7 @@ function getForm() {
 
 function getResultsContainers(data) {
     return `<div class="results-page container d-flex flex-column">\
-    <h1 class="text-center display-4 mb-4 feature-text">Your trip to <span class="shiny feature-text display-3">${data.city}</span></h1>\
+    <h1 class="text-center result-title display-4 mb-4">Your trip to <span class="shiny result-location">${data.city}</span></h1>\
     <div class="row">\
       <div id="flights-container" class="d-flex flex-column result-box mb-3 col-sm-7">
         <div class="inner-container">
