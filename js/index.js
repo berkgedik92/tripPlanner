@@ -4,7 +4,6 @@ $(document).ready(function() {
     triggerTextShine();
 
     $(document).on('click', '#start-button', event =>{
-        console.log("Rendering input form");
         renderForm();
     })
 
@@ -30,7 +29,6 @@ $(document).ready(function() {
     })	   
 
     $(document).on('click', '#new-search-button', event =>{
-        console.log("Starting new search");
         $(".main-container").addClass("justify-content-center");
         renderForm();
     })
@@ -60,25 +58,31 @@ function renderForm(){
 }
 
 function renderResultsPage(data){
-    console.log("Rendering results");
     $(".main-container").removeClass("justify-content-center");
-    console.log(data);
     $(".main-container").html(getResultsContainers(data));
     triggerTextShine();
 }
 
 function processDates(dates){
-    let fromDate = dates.split(" to ")[0].split("-");
-    let toDate = dates.split(" to ")[1].split("-");
-    const datesObject = {
+    try {
+        let fromDate = dates.split(" to ")[0].split("-");
+        let toDate = dates.split(" to ")[1].split("-");
+        const datesObject = {
         fromDay: fromDate[1],
         fromMonth: fromDate[0],
         fromYear: fromDate[2],
         toDay: toDate[1],
         toMonth: toDate[0],
         toYear: toDate[2]
+        }
+        return datesObject;
     }
-    return datesObject;
+    catch(e) {
+        console.log("helloooo");
+        $('#error-message').removeClass("d-none");
+        $("#error-message").html("Please ensure that you have entered valid dates and try again.");
+        throw e;
+    }
 }
 
 function addLoading() {
@@ -103,7 +107,6 @@ function run_waitMe(selector){
 }
 
 function processInput() {
-    console.log("Processing input");
     $('#error-message').addClass("d-none");
     let userInput = {};
     userInput.dates = processDates($("#dateRange").val());
