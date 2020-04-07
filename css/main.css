@@ -89,6 +89,7 @@
     border: 1px solid rgb(226, 226, 226);
     border-radius: 5px;
     padding: 0.5vh 0.5vw;
+    margin: 0 3vw;
     height: 200px;
 }
 .result-heading {
@@ -150,6 +151,9 @@
     }
     .result-location {
         font-size: 65px;
+    }
+    .result-box {
+        margin: 0;
     }
 }
 
