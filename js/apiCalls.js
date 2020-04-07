@@ -76,24 +76,6 @@ function initiateApiCalls(userInput) {
     });
 }
 
-function getCity(jsonData) {
-    
-    try {
-        console.log(jsonData);
-        const condition = d => d.types.includes("locality") || d.types.includes("political");
-        const results = jsonData.address_components.filter(condition);
-        if (results.length > 0){
-            return results[0].short_name;
-        }
-        return jsonData.formatted_address;
-    }
-    catch(e) {
-        $('#error-message').removeClass("d-none");
-        $("#error-message").html("Please ensure that both of your locations are valid and try again.");
-        throw e;
-    }
-}
-
 function fetchGeocoding(location) {
 
     let url = "https://maps.googleapis.com/maps/api/geocode/json?";

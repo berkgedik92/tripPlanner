@@ -22,7 +22,6 @@ $(document).ready(function() {
         catch(e) {
             $('#error-message').removeClass("d-none");
             $("#error-message").html("Please ensure that you have completed the form correctly and try again.");
-            console.log(`Error: ${e}`);
             return;
         }
         initiateApiCalls(userInput);
@@ -66,7 +65,6 @@ function renderResultsPage(data){
 function getCity(jsonData) {
     
     try {
-        console.log(jsonData);
         const condition = d => d.types.includes("locality") || d.types.includes("political");
         const results = jsonData.address_components.filter(condition);
         if (results.length > 0){
@@ -151,7 +149,6 @@ function showError(error, containerSelectors) {
         $(element).closest(".result-box").waitMe("hide");
         $(element).closest(".result-box").css("height", "auto");
     });
-    console.log(`Error: ${error}`);
 }
 
 function convertToFarenheit(celsius) {
