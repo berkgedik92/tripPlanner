@@ -79,7 +79,8 @@ function initiateApiCalls(userInput) {
 function getCity(jsonData) {
     
     try {
-        const condition = d => d.types.includes("locality");
+        console.log(jsonData);
+        const condition = d => d.types.includes("locality") || d.types.includes("political");
         const results = jsonData.address_components.filter(condition);
         if (results.length > 0){
             return results[0].short_name;
@@ -107,6 +108,7 @@ function fetchGeocoding(location) {
         })
         .then(responseJson => {
             let result = responseJson.results[0];
+            // need to handle if result is undefined
             return {
                 "city": getCity(result),
                 "lat": result.geometry.location.lat,

@@ -63,6 +63,35 @@ function renderResultsPage(data){
     triggerTextShine();
 }
 
+function getCity(jsonData) {
+    
+    try {
+        console.log(jsonData);
+        const condition = d => d.types.includes("locality") || d.types.includes("political");
+        const results = jsonData.address_components.filter(condition);
+        if (results.length > 0){
+            return results[0].short_name;
+        }
+        return jsonData.formatted_address;
+    }
+    catch(e) {
+        $('#error-message').removeClass("d-none");
+        $("#error-message").html("Please ensure that both of your locations are valid and try again.");
+        throw e;
+    }
+}
+
+function checkDatesAreInFuture(dates){
+    const fromTimeStamp = new Date(`${dates.fromYear}.${dates.fromMonth}.${dates.fromDay}`).getTime()/1000;
+    const toTimeStamp = new Date(`${dates.toYear}.${dates.toMonth}.${dates.toDay}`).getTime()/1000;
+    const currentTime = new Date().getTime()/1000;
+
+    if (fromTimeStamp < currentTime || toTimeStamp < currentTime){
+        throw "Input dates occur in the past";
+    }
+
+}
+
 function processDates(dates){
     try {
         let fromDate = dates.split(" to ")[0].split("-");
@@ -75,10 +104,10 @@ function processDates(dates){
         toMonth: toDate[0],
         toYear: toDate[2]
         }
+        checkDatesAreInFuture(datesObject);
         return datesObject;
     }
     catch(e) {
-        console.log("helloooo");
         $('#error-message').removeClass("d-none");
         $("#error-message").html("Please ensure that you have entered valid dates and try again.");
         throw e;
